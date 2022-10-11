@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 from numpy import float32, random
-from read_cifar import read_cifar_batch
+from read_cifar import read_cifar, read_cifar_batch
 
 
 def test_read_cifar_batch():
@@ -27,3 +27,22 @@ def test_read_cifar_batch():
 def test_wrong_filepath():
     with pytest.raises(FileNotFoundError):
         read_cifar_batch('data_batch_0')
+    return
+
+
+def test_read_cifar():
+    concat_batch, concat_labels = read_cifar('data')
+
+    assert type(concat_batch) == np.ndarray
+    assert type(concat_labels) == np.ndarray
+    assert concat_batch.dtype == np.float32
+    assert concat_labels.dtype == np.int64
+    assert np.shape(concat_batch) == (60000, 3072)
+    assert np.shape(concat_labels) == (60000, )
+
+    return
+
+
+def test_wrong_directory():
+    with pytest.raises(FileNotFoundError):
+        read_cifar('toto')
