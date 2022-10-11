@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 from numpy import float32, random
-from read_cifar import read_cifar, read_cifar_batch
+from read_cifar import read_cifar, read_cifar_batch, split_dataset
 
 
 def test_read_cifar_batch():
@@ -46,3 +46,36 @@ def test_read_cifar():
 def test_wrong_directory():
     with pytest.raises(FileNotFoundError):
         read_cifar('toto')
+    return
+
+
+def test_split_dataset():
+    concat_batch, concat_labels = read_cifar('data')
+
+    split = np.round(random.rand(), 2)
+
+    train_data, train_labels, test_data, test_labels = split_dataset(
+        concat_batch, concat_labels, split)
+
+    assert type(train_data) == np.ndarray
+    assert type(train_labels) == np.ndarray
+    assert type(test_data) == np.ndarray
+    assert type(test_labels) == np.ndarray
+
+    assert train_data.dtype == np.float32
+    assert train_labels.dtype == np.int64
+    assert test_data.dtype == np.float32
+    assert test_labels.dtype == np.int64
+
+    L_train_data, l_train_data = np.shape(train_data)
+    L_test_data, l_test_data = np.shape(test_data)
+
+    L_train_labels = np.shape(train_labels)[0]
+    L_test_labels = np.shape(test_labels)[0]
+
+    assert L_train_data + L_test_data == 60000
+    assert l_train_data == l_test_data == 3072
+    assert L_train_labels + L_test_labels == 60000
+
+
+return
