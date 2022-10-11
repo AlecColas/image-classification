@@ -77,5 +77,4 @@ def test_split_dataset():
     assert l_train_data == l_test_data == 3072
     assert L_train_labels + L_test_labels == 60000
 
-
-return
+    return
