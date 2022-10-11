@@ -7,8 +7,12 @@ from read_cifar import read_cifar_batch
 def test_read_cifar_batch():
 
     int = random.randint(1, 7)
-    data_in_float32, labels_in_int64 = read_cifar_batch(
-        'data/data_batch_' + str(int))
+    if (int == 6):
+        data_in_float32, labels_in_int64 = read_cifar_batch(
+            'data/test_batch')
+    else:
+        data_in_float32, labels_in_int64 = read_cifar_batch(
+            'data/data_batch_' + str(int))
 
     assert type(data_in_float32) == np.ndarray
     assert type(labels_in_int64) == np.ndarray
