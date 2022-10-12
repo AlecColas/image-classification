@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
-from knn import evaluate_knn
-from read_cifar import read_cifar, split_dataset
+from modules.knn import evaluate_knn
+from modules.read_cifar import read_cifar, split_dataset
 
 
 split_test = False
