@@ -36,7 +36,8 @@ def read_cifar(folder_path):
 def split_dataset(data, labels, split):
     nb_rows = len(data)
 
-    test_data_length = int(nb_rows * (1 - split))
+    train_data_length = int(nb_rows * split)
+    test_data_length = nb_rows - train_data_length
 
     random_row_indices = random.sample(range(nb_rows), test_data_length)
 
