@@ -22,7 +22,7 @@ def knn_predict(dists, labels_train, k=1):
 
 
 def classify_with_mode(labels_of_knn):
-    return stats.mode(labels_of_knn).mode[0]
+    return stats.mode(labels_of_knn, 0, keepdims=False).mode
 
 
 def compute_accuracy(labels_test, computed_labels):
