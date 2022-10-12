@@ -47,8 +47,8 @@ def test_predict_knn():
     assert len(results1) == 1
     assert results1 == 'p1'
 
-    assert knn_predict(dists, predicts, -1) == None
-    assert knn_predict(dists, predicts, 4) == None
+    assert len(knn_predict(dists, predicts, -1)) == 0
+    assert len(knn_predict(dists, predicts, 4)) == 0
 
     return
 
