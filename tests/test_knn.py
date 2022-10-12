@@ -16,12 +16,12 @@ c1 = np.array([a, a, b])
 def test_distance_matrix():
     dists = distance_matrix(a1, b1)
     assert np.shape(dists) == (3, )
-    assert np.array_equal(dists, [3., 3., 3.])
+    assert np.array_equal(dists, [np.sqrt(27), ]*3)
 
     dists1 = distance_matrix(a1, c1)
     assert np.shape(dists1) == (3, )
     assert dists1[0] == 0.
-    assert dists[1] == dists[2] == 3.
+    assert dists[1] == dists[2] == np.sqrt(27)
 
     return
 

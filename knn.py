@@ -3,12 +3,7 @@ from scipy import stats
 
 
 def distance_matrix(a, b):
-    # calculer la distance sur chaque pixel et chaque couleur
-    diff = np.sqrt(a*a + b*b - 2*a*b)
-    # faire la somme matriciel des couelurs RGB sur chaque pixel et chaque image
-    somm = np.sum(diff, (1))
-    # prendre la racine de la somme
-    dists = np.sqrt(somm)
+    dists = np.linalg.norm(a - b, axis=1)
     return dists
 
 
