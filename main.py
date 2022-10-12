@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
 from knn import evaluate_knn
-from read_cifar import read_cifar, read_cifar_batch, split_dataset
+from read_cifar import read_cifar, split_dataset
 
 
 split_test = False
@@ -23,7 +23,7 @@ while split_test != True:
         print(e)
 
 
-dict = read_cifar_batch('data/data_batch_1')
+dict = read_cifar('data')
 (data, labels) = dict
 
 data_train, labels_train, data_test, labels_test = split_dataset(
