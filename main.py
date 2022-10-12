@@ -4,6 +4,7 @@ from read_cifar import read_cifar, split_dataset
 
 
 split_test = False
+split_factor = 1
 
 while split_test != True:
     str_split_factor = input(

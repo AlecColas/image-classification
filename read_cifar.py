@@ -3,7 +3,7 @@ import random
 import numpy as np
 
 
-def read_cifar_batch(file_path):
+def read_cifar_batch(file_path: str):
     with open(file_path, 'rb') as fo:
         dict = pickle.load(fo, encoding='bytes')
     data_in_bytes = dict[b"data"]
@@ -15,7 +15,7 @@ def read_cifar_batch(file_path):
     return (data_in_float32, labels_in_int64)
 
 
-def read_cifar(folder_path):
+def read_cifar(folder_path: str):
     axis_of_concat = 0
 
     data_0 = read_cifar_batch(folder_path + '/test_batch')
@@ -33,7 +33,7 @@ def read_cifar(folder_path):
     return (concat_batch, concat_labels)
 
 
-def split_dataset(data, labels, split):
+def split_dataset(data, labels, split: float):
     nb_rows = len(data)
 
     train_data_length = int(nb_rows * split)
