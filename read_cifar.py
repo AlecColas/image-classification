@@ -11,6 +11,7 @@ def read_cifar_batch(file_path):
 
     data_in_float32 = np.asarray(data_in_bytes, np.float32)
     labels_in_int64 = np.asarray(labels_in_bytes, np.int64)
+
     return (data_in_float32, labels_in_int64)
 
 
@@ -38,17 +39,12 @@ def split_dataset(data, labels, split):
     test_data_length = int(nb_rows * (1 - split))
 
     random_row_indices = random.sample(range(nb_rows), test_data_length)
-    print('Nb of Random indices :', len(random_row_indices))
+
     test_data = data[random_row_indices, :]
     test_labels = labels[random_row_indices]
 
     train_data = np.delete(data, random_row_indices, axis=0)
     train_labels = np.delete(labels, random_row_indices, axis=0)
-
-    print('Train data length :', np.shape(train_data))
-    print('Train labels length :', np.shape(train_labels))
-    print('Test data length :', np.shape(test_data))
-    print('Test labels length :', np.shape(test_labels))
 
     return (train_data, train_labels, test_data, test_labels)
 
