@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from numpy import float32, random
+from numpy import random
 from read_cifar import read_cifar, read_cifar_batch, split_dataset
 
 
