@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
 
-from knn import compute_accuracy, distance_matrix, evaluate_knn, knn_predict
+from modules.knn import compute_accuracy, distance_matrix, evaluate_knn, knn_predict
 
 
 a = np.array([1, 2, 3])
