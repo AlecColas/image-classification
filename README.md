@@ -1,92 +1,163 @@
 # Image Classification
 
+A comparison of two image classification methods in Python :
 
+- k-nearest neighbors (KNN)
+- and artificial neural networks (NN)
 
-## Getting started
+The data used to test these methods comes from the CIFAR-10 dataset : https://www.cs.toronto.edu/~kriz/cifar.html
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+This repository follows the instructions of this tutorial : https://gitlab.ec-lyon.fr/qgalloue/image_classification_instructions
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Principles
 
-## Add your files
+### k-Nearest Neighbors Algorithm
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+The k-nearest neighbors algorithm, also known as KNN or k-NN, is a non-parametric, supervised learning classifier, which uses proximity to make classifications or predictions about the grouping of an individual data point. While it can be used for either regression or classification problems, it is typically used as a classification algorithm, working off the assumption that similar points can be found near one another.
 
-```
-cd existing_repo
-git remote add origin https://gitlab.ec-lyon.fr/colasa/image-classification.git
-git branch -M main
-git push -uf origin main
-```
+KNN works by finding the distances between a query and all the examples in the training data, selecting the specified number examples (K) closest to the query, then votes for the most frequent label (in the case of classification) or averages the labels (in the case of regression).
 
-## Integrate with your tools
+<figure>
+<img src="https://www.ibm.com/content/dam/connectedassets-adobe-cms/worldwide-content/cdp/cf/ul/g/ef/3a/KNN.component.xl.ts=1639762044031.png/content/adobe-cms/ca/fr/topics/knn/jcr:content/root/table_of_contents/intro/complex_narrative/items/content_group/image" alt="Trulli" style="width:100%">
+<figcaption align = "center"><b>Principle of K Neirest Neighbors (KNN)</b></figcaption>
+</figure>
 
-- [ ] [Set up project integrations](https://gitlab.ec-lyon.fr/colasa/image-classification/-/settings/integrations)
+_Source : https://www.ibm.com/topics/knn_
 
-## Collaborate with your team
+For more references, see [K-Nearest Neighbors Algorithm](https://www.ibm.com/topics/knn) or [Machine Learning Basics with the K-Nearest Neighbors Algorithm](https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761)
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### Neural Networks
 
-## Test and Deploy
+Neural networks, also known as artificial neural networks (ANNs) or simulated neural networks (SNNs), are a subset of machine learning and are at the heart of deep learning algorithms. Their name and structure are inspired by the human brain, mimicking the way that biological neurons signal to one another.
 
-Use the built-in continuous integration in GitLab.
+Artificial neural networks (ANNs) are comprised of a node layers, containing an input layer, one or more hidden layers, and an output layer. Each node, or artificial neuron, connects to another and has an associated weight and threshold. If the output of any individual node is above the specified threshold value, that node is activated, sending data to the next layer of the network. Otherwise, no data is passed along to the next layer of the network.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+<figure>
+<img src="https://1.cms.s81c.com/sites/default/files/2021-01-06/ICLH_Diagram_Batch_01_03-DeepNeuralNetwork-WHITEBG.png" alt="Trulli" style="width:100%">
+<figcaption align = "center"><b>Principle of Artificial Neural Network (NN)</b></figcaption>
+</figure>
 
-***
+Neural networks rely on training data to learn and improve their accuracy over time. However, once these learning algorithms are fine-tuned for accuracy, they are powerful tools in computer science and artificial intelligence, allowing us to classify and cluster data at a high velocity. Tasks in speech recognition or image recognition can take minutes versus hours when compared to the manual identification by human experts.
 
-# Editing this README
+_Source : https://www.ibm.com/cloud/learn/neural-networks_
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+## CIFAR-10
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+The CIFAR-10 and CIFAR-100 are labeled subsets of the 80 million tiny images dataset. They were collected by Alex Krizhevsky, Vinod Nair, and Geoffrey Hinton.
 
-## Name
-Choose a self-explaining name for your project.
+The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+The dataset is divided into five training batches and one test batch, each with 10000 images. The test batch contains exactly 1000 randomly-selected images from each class. The training batches contain the remaining images in random order, but some training batches may contain more images from one class than another. Between them, the training batches contain exactly 5000 images from each class.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Here are the classes in the dataset, as well as 10 random images from each: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+The classes are completely mutually exclusive. There is no overlap between automobiles and trucks. "Automobile" includes sedans, SUVs, things of that sort. "Truck" includes only big trucks. Neither includes pickup trucks.
+
+To learn more about CIFAR data or download data, click the Source link.
+
+_Source : https://www.cs.toronto.edu/~kriz/cifar.html_
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+
+### Requirements
+
+This project requires [python3](https://www.python.org/), and common libraries installations :
+
+- [Matplotlib](https://matplotlib.org/) for creating visualizations
+- [NumPy](https://numpy.org/) for computing with 2-D arrays
+- [SciPy](https://scipy.org/) for fundamental algorithms
+- [Pickel](https://docs.python.org/3/library/pickle.html) for Python object serialization
+- [Pytest](https://docs.pytest.org/en/7.1.x/) for unit tests
+
+### Development Environment
+
+This project was developped using Visual Studio Code (see https://code.visualstudio.com/ for installation), and contains a vscode [settings.json](.vscode/settings.json) to allow type checking (to check the correct use of functions' outputs.)
+
+It follows the [PEP8](https://peps.python.org/pep-0008/) and [PEP257](https://peps.python.org/pep-0257/) Recommandations.
+
+You can use Python utilites / libraries such as :
+
+- [Black](https://black.readthedocs.io/en/stable/) to format code
+- [isort](https://pycqa.github.io/isort/) to sort imports
+- [Pydocstyle](http://www.pydocstyle.org/en/stable/) to help you document your code properly
+
+Or you can use VSCode extensions such as :
+
+- [Prettier](https://prettier.io/) to format code
+- [autoDocString](https://github.com/NilsJPWerner/autoDocstring) to help you document your code properly
+- [Makefile Tools](https://github.com/Microsoft/vscode-makefile-tools/) to support Makefiles in VSCode
 
 ## Usage
+
+To run the script contained in main.py simply use :
+
+```Makefile
+make run
+```
+
+Then, you will be able to choose which method to use by entering 1 or 2 :
+
+- 1 for KNN
+- 2 for Neural Network
+
+To run unit tests you may use :
+
+```Makefile
+make unittest
+```
+
+To visualize test coverage run :
+
+```Makefile
+make coverage
+```
+
+Unit tests and test coverage reports are run and created with Pytest.
+
 Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Architecture
+
+The [Makefile](Makefile) groups all usefull commands for this project :
+
+- Running the main.py script
+- Executing unit tests
+- Checking cove coverage
+
+The [main script](main.py) is the executable part of this project. It can be easily run using the method contained in the [Makefile](Makefile).
+
+Functions used for each classification method are contained in files under the directory [modules/](modules/).
+
+Unit tests for each of these functions appear in the [tests/](tests/) directory under the name _test+\_[method_name].py_.
+
+The [vscode settings](.vscode/settings.json) allow type checking for Visual Studio Code Users. It is usefull to check the correct use of functions' outputs during the development phase.
+
+## Support / Contributing
+
+If you want to propose any improvements or need any help, feel free to contribute by [opening an issue](https://gitlab.ec-lyon.fr/colasa/image-classification/-/issues/new).
 
 ## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+Ideas of improvement :
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+- [ ] OPTIMIZATION : optimize computation for KNN method ;
+  - [ ] #1 : OPTIMIZE distance_matrix() : use matrix instead of vectors and return a matrix of 50000 x 10000
+  - [ ] #2 : OPTIMIZE evaluate_knn() : when computing for k=20, we also compute for all k in [1,2,...,20]. So we could just use the labels retrieved with k=20 and use them for fewer k, instead of re-computing distance_matrix() for each k
+- [ ] VISUALISATION : show the computed accuracy points lively ;
+- [ ] ARCHITECTURE : group functions in classes (1 class for each classification method, and 1 class to prepare the CIFAR-10 data).
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## References
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+- [Learning Multiple Layers of Features from Tiny Images](https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf) by _Alex Krizhevsky_
+- [Download CIFAR datasets](https://www.cs.toronto.edu/~kriz/cifar.html) by _Alex Krizhevsky_
+- [Tutorial to Image Classification](https://gitlab.ec-lyon.fr/qgalloue/image_classification_instructions) by _Quentin Gallouédec_
+- [What is the k-nearest neighbors method](https://www.ibm.com/topics/knn) by _IBM_
+- [What are Neural Networks](https://www.ibm.com/cloud/learn/neural-networks) by _IBM_
 
 ## License
-For open source projects, say how it is licensed.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+This project is licensed under the [MIT License](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt).
+
+## Author
+
+- [Alexandre Colas](https://gitlab.ec-lyon.fr/colasa)
