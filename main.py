@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 from modules.knn import evaluate_knn
 from modules.read_cifar import read_cifar, split_dataset
+from datetime import datetime
 
 
 split_test = False
@@ -40,5 +41,8 @@ for k in list_k:
     accuracies.append(k_accuracy)
 
 print(accuracies)
+
+fig = plt.figure()
 plt.plot(list_k, accuracies, 'bo')
+fig.savefig('results/knn'+str(datetime.now()), format='png')
 plt.show()
