@@ -6,7 +6,7 @@ from modules.read_cifar import read_cifar, split_dataset
 split_test = False
 split_factor = 1
 
-while split_test != True:
+while not (split_test):
     str_split_factor = input(
         'Enter a float between 0 and 1 which determines the split factor between training and test sets :  ')
 
