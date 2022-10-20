@@ -95,7 +95,7 @@ def compute_accuracy_for_range_k(labels_test, computed_labels_for_all_k, k_max):
     for k in range(k_max):
         # extract column k representing the computed labels for data_test for k
         computed_labels_for_k = computed_labels_for_all_k[:, k]
-
+        print(computed_labels_for_k)
         # get the number of well computed labels for k-neighbors
         nb_well_classified = np.count_nonzero(
             labels_test == computed_labels_for_k)
@@ -117,7 +117,8 @@ def evaluate_knn_optimized(data_train, labels_train, data_test, labels_test, k_m
     # get the computed labels for data_test, for all k in range (1,k_max)
     computed_labels_for_all_k = evaluate_classification_for_range_kmax(
         data_train, labels_train, data_test, k_max)
-
+    print(computed_labels_for_all_k)
+    print(computed_labels_for_all_k)
     # compute the accuracy of the knn method for all k in range (1, k_max)
     accuracy_for_all_k = compute_accuracy_for_range_k(
         labels_test, computed_labels_for_all_k, k_max)
