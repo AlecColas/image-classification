@@ -48,13 +48,3 @@ def split_dataset(data, labels, split: float):
     train_labels = np.delete(labels, random_row_indices, axis=0)
 
     return (train_data, train_labels, test_data, test_labels)
-
-
-dict = read_cifar('data')
-
-(data, labels) = dict
-
-print('Length data : ', np.shape(data))
-print('Length labels : ', np.shape(labels))
-
-split_dataset(data, labels, 0.8)
