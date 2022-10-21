@@ -7,8 +7,8 @@ def distance_matrix(train, test):
     train2 = train*train
     test2 = test*test
 
-    train2_sum = np.sum(train2, axis=1)
-    test2_sum = np.sum(test2, axis=1)
+    train2_sum = np.sum(train2, axis=1, keepdims=True)
+    test2_sum = np.sum(test2, axis=1, keepdims=True)
 
     product = -2 * np.matmul(train, test.T)
 
