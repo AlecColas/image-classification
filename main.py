@@ -27,6 +27,31 @@ def choose_split_factor():
     return split_factor
 
 
+def plot_and_save_fig(k_max, accuracies):
+    print('Plotting figure')
+
+    range_k_max = range(1, k_max+1, 1)
+    list_k = list(range_k_max)
+    default_x_ticks = range_k_max
+
+    fig = plt.figure()
+    plt.plot(list_k, accuracies, marker='o',
+             linestyle='--', color='b', label='split_factor = '+str(split_factor))
+
+    plt.xticks(default_x_ticks, list_k)
+    plt.grid(True, which='both')
+
+    plt.xlabel('k number of neighbors')
+    plt.ylabel('Accuracy')
+    plt.title('KNN method accuracy using CIFAR-10 data')
+    plt.legend()
+
+    fig.savefig('results/knn'+str(datetime.now())+'.png')
+    plt.show()
+
+    return
+
+
 split_factor = choose_split_factor()
 
 
@@ -51,21 +76,4 @@ k_max = 20
 accuracy_for_all_k = evaluate_knn_optimized(data_train, labels_train,
                                             data_test, labels_test, k_max)
 
-print('Plotting figure')
-list_k = list(range(1, k_max+1, 1))
-
-fig = plt.figure()
-plt.plot(list_k, accuracy_for_all_k, marker='o',
-         linestyle='--', color='b', label='split_factor = '+str(split_factor))
-
-plt.legend()
-default_x_ticks = range(1, k_max+1, 1)
-plt.xticks(default_x_ticks, list_k)
-plt.grid(True, which='both')
-
-plt.xlabel('k number of neighbors')
-plt.ylabel('Accuracy')
-plt.title('KNN method accuracy using CIFAR-10 data')
-
-fig.savefig('results/knn'+str(datetime.now())+'.png')
-plt.show()
+plot_and_save_fig(k_max, accuracy_for_all_k)
