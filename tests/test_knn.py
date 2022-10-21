@@ -8,26 +8,25 @@ a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
 c = np.array([7, 8, 9])
 
-a1 = np.array([a, b, a])
-b1 = np.array([b, c, b])
-c1 = np.array([a, a, b])
+a1 = np.array([a, a, a])
+b1 = np.array([b, b])
+c1 = np.array([c, c])
 
 
 def test_distance_matrix():
     dists = distance_matrix(a1, b1)
-    assert np.shape(dists) == (3, )
-    assert np.array_equal(dists, [np.sqrt(27), ]*3)
+    assert np.shape(dists) == (3, 2)
+    assert np.array_equal(dists, [[np.sqrt(27), np.sqrt(27)], ]*3)
 
     dists1 = distance_matrix(a1, c1)
-    assert np.shape(dists1) == (3, )
-    assert dists1[0] == 0.
-    assert dists[1] == dists[2] == np.sqrt(27)
+    assert np.shape(dists1) == (3, 2)
+    assert np.array_equal(dists1, [[np.sqrt(108), np.sqrt(108)], ]*3)
 
     return
 
 
 def test_incompatible_arrays_distance_matrix():
-    d1 = np.array([a, a])
+    d1 = np.array([[1, 2], [1, 2]])
     with pytest.raises(ValueError):
         distance_matrix(a1, d1)
     return
@@ -38,14 +37,13 @@ def test_predict_knn():
 
     dists = distance_matrix(a1, b1)
     results = knn_predict(dists, predicts, 2)
-    assert len(results) == 2
-    assert results[0] == 'p1'
-    assert results[1] == 'p2'
+    assert np.shape(results) == (2, 2)
+    assert np.array_equal(results, np.array([['p1', 'p1'], ['p2', 'p2']]))
 
     dists1 = distance_matrix(a1, c1)
     results1 = knn_predict(dists1, predicts)
-    assert len(results1) == 1
-    assert results1 == 'p1'
+    assert np.shape(results1) == (1, 2)
+    assert np.array_equal(results1, np.array([['p1', 'p1']]))
 
     assert len(knn_predict(dists, predicts, -1)) == 0
     assert len(knn_predict(dists, predicts, 4)) == 0
