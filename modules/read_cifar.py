@@ -16,6 +16,8 @@ def read_cifar_batch(file_path: str):
 
 
 def read_cifar(folder_path: str):
+    print('Extracting CIFAR-10 data')
+
     axis_of_concat = 0
 
     data_0 = read_cifar_batch(folder_path + '/test_batch')
@@ -34,6 +36,8 @@ def read_cifar(folder_path: str):
 
 
 def split_dataset(data, labels, split: float):
+    print('Splitting dataset')
+
     nb_rows = len(data)
 
     train_data_length = int(nb_rows * split)

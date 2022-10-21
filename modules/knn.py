@@ -4,6 +4,8 @@ from scipy import stats
 
 def distance_matrix(train, test):
     # returns a matrix of size len(train) x len(test)
+    print('Computing distance matrix between train and test sets')
+
     train2 = train*train
     test2 = test*test
 
@@ -17,6 +19,8 @@ def distance_matrix(train, test):
 
 
 def knn_predict(dists, labels_train, k=1):
+    print('Extracting labels of k nearest neighbors')
+
     if (k <= 0 or k > np.shape(dists)[0]):
         return np.array([])
 
@@ -52,6 +56,7 @@ def evaluate_knn(data_train, labels_train, data_test, labels_test, k: int):
 
 
 def compute_accuracy_for_range_k(labels_test, computed_labels_for_all_k, k_max):
+    print('Computing accuracies')
     nb_labels = len(labels_test)
 
     # list of accuracies for all k in range (1, k_max)
@@ -73,6 +78,7 @@ def compute_accuracy_for_range_k(labels_test, computed_labels_for_all_k, k_max):
 
 
 def evaluate_knn_optimized(data_train, labels_train, data_test, labels_test, k_max: int):
+    print('Starting knn evaluation')
 
     # check if k_max value is correct
     L_data_train = np.shape(data_train)[0]

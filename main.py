@@ -46,7 +46,7 @@ k_max = 20
 accuracy_for_all_k = evaluate_knn_optimized(data_train, labels_train,
                                             data_test, labels_test, k_max)
 
-
+print('Plotting figure')
 list_k = list(range(1, k_max+1, 1))
 
 fig = plt.figure()
