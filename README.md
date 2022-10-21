@@ -95,9 +95,10 @@ To run the script contained in main.py simply use :
 make run
 ```
 
-Then, you will be able to choose which method to use by entering 1 or 2 :
+Then, you will be able to choose which method to use by entering 0, 1 or 2 :
 
-- 1 for KNN
+- 0 for unoptimized KNN method (might take some time to compute)
+- 1 for optimized KNN method
 - 2 for Neural Network
 
 To run unit tests you may use :
@@ -128,6 +129,8 @@ The [main script](main.py) is the executable part of this project. It can be eas
 
 Functions used for each classification method are contained in files under the directory [modules/](modules/).
 
+Some helper functions for example choosing a classification method, choosing the value of the split factor or plotting results are contained in the [helper file](modules/helper.py)
+
 Unit tests for each of these functions appear in the [tests/](tests/) directory under the name _test+\_[method_name].py_.
 
 The [vscode settings](.vscode/settings.json) allow type checking for Visual Studio Code Users. It is usefull to check the correct use of functions' outputs during the development phase.
@@ -144,8 +147,8 @@ Ideas of improvement :
   - [x] #1 : OPTIMIZE distance_matrix() : use matrix instead of vectors and return a matrix of 50000 x 10000
   - [x] #2 : OPTIMIZE evaluate_knn() : when computing for k=20, we also compute for all k in [1,2,...,20]. So we could just use the labels retrieved with k=20 and use them for fewer k, instead of re-computing distance_matrix() for each k
   - [ ] #3 : SHOW the advantage of optimization
-- [ ] MAIN SCRIPT : improve lisibility on main script using functions (should store these functions in a helper.py for example)
-- [ ] VISUALISATION : show the computed accuracy points lively ;
+- [x] MAIN SCRIPT : improve lisibility on main script using functions (should store these functions in a helper.py for example)
+- [ ] VISUALISATION : show the computed accuracy points lively (only needed for unoptimized KNN method)
 - [ ] ARCHITECTURE : group functions in classes (1 class for each classification method, and 1 class to prepare the CIFAR-10 data).
 
 ## References
