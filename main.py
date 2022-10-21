@@ -54,8 +54,7 @@ plt.plot(list_k, accuracy_for_all_k, marker='o',
          linestyle='--', color='b', label='split_factor = '+str(split_factor))
 
 plt.legend()
-plt.xlim([0, k_max+1])
-default_x_ticks = range(len(list_k))
+default_x_ticks = range(1, k_max+1, 1)
 plt.xticks(default_x_ticks, list_k)
 plt.grid(True, which='both')
 
