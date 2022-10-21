@@ -59,7 +59,7 @@ def compute_accuracy_for_range_k(labels_test, computed_labels_for_all_k, k_max):
 
     for k in range(k_max):
         # extract column k representing the computed labels for data_test for k
-        computed_labels_for_k = computed_labels_for_all_k[:, k]
+        computed_labels_for_k = computed_labels_for_all_k[k]
 
         # get the number of well computed labels for k-neighbors
         nb_well_classified = np.count_nonzero(
@@ -80,11 +80,20 @@ def evaluate_knn_optimized(data_train, labels_train, data_test, labels_test, k_m
         return
 
     dists = distance_matrix(data_train, data_test)
-    # get the computed labels for data_test, for all k in range (1,k_max)
-    computed_labels_for_all_k = knn_predict(dists, labels_train, k_max)
+    # get the computed labels for data_test, k = k_max
+    computed_labels_for_k_max_neighbors = knn_predict(
+        dists, labels_train, k_max)
+
+    computed_labels_for_test_images = []
+    for i in range(1, k_max+1):
+        computed_labels_for_test_images_for_k = classify_with_mode(
+            computed_labels_for_k_max_neighbors[:i, :])
+
+        computed_labels_for_test_images.append(
+            computed_labels_for_test_images_for_k)
 
     # compute the accuracy of the knn method for all k in range (1, k_max)
     accuracy_for_all_k = compute_accuracy_for_range_k(
-        labels_test, computed_labels_for_all_k, k_max)
+        labels_test, computed_labels_for_test_images, k_max)
 
     return accuracy_for_all_k
