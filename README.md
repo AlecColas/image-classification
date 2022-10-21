@@ -140,9 +140,11 @@ If you want to propose any improvements or need any help, feel free to contribut
 
 Ideas of improvement :
 
-- [ ] OPTIMIZATION : optimize computation for KNN method ;
-  - [ ] #1 : OPTIMIZE distance_matrix() : use matrix instead of vectors and return a matrix of 50000 x 10000
+- [x] OPTIMIZATION : optimize computation for KNN method ;
+  - [x] #1 : OPTIMIZE distance_matrix() : use matrix instead of vectors and return a matrix of 50000 x 10000
   - [x] #2 : OPTIMIZE evaluate_knn() : when computing for k=20, we also compute for all k in [1,2,...,20]. So we could just use the labels retrieved with k=20 and use them for fewer k, instead of re-computing distance_matrix() for each k
+  - [ ] #3 : SHOW the advantage of optimization
+- [ ] MAIN SCRIPT : improve lisibility on main script using functions (should store these functions in a helper.py for example)
 - [ ] VISUALISATION : show the computed accuracy points lively ;
 - [ ] ARCHITECTURE : group functions in classes (1 class for each classification method, and 1 class to prepare the CIFAR-10 data).
 
