@@ -1,5 +1,5 @@
 from matplotlib import pyplot as plt
-from modules.knn import evaluate_knn
+from modules.knn import evaluate_knn, evaluate_knn_optimized
 from modules.read_cifar import read_cifar, split_dataset
 from datetime import datetime
 
@@ -31,18 +31,37 @@ dict = read_cifar('data')
 data_train, labels_train, data_test, labels_test = split_dataset(
     data, labels, split_factor)
 
-accuracies = []
-list_k = list(range(1, 21, 1))
-print(list_k)
-for k in list_k:
-    print(k)
-    k_accuracy = evaluate_knn(data_train, labels_train,
-                              data_test, labels_test, k)
-    accuracies.append(k_accuracy)
+# accuracies = []
+# list_k = list(range(1, 21, 1))
+# print(list_k)
+# for k in list_k:
+#     print(k)
+#     k_accuracy = evaluate_knn(data_train, labels_train,
+#                               data_test, labels_test, k)
+#     accuracies.append(k_accuracy)
 
-print(accuracies)
+# print(accuracies)
+
+k_max = 20
+accuracy_for_all_k = evaluate_knn_optimized(data_train, labels_train,
+                                            data_test, labels_test, k_max)
+
+
+list_k = list(range(1, k_max+1, 1))
 
 fig = plt.figure()
-plt.plot(list_k, accuracies, 'bo')
-fig.savefig('results/knn'+str(datetime.now()), format='png')
+plt.plot(list_k, accuracy_for_all_k, marker='o',
+         linestyle='--', color='b', label='split_factor = '+str(split_factor))
+
+plt.legend()
+plt.xlim([0, k_max+1])
+default_x_ticks = range(len(list_k))
+plt.xticks(default_x_ticks, list_k)
+plt.grid(True, which='both')
+
+plt.xlabel('k number of neighbors')
+plt.ylabel('Accuracy')
+plt.title('KNN method accuracy using CIFAR-10 data')
+
+fig.savefig('results/knn'+str(datetime.now())+'.png')
 plt.show()
