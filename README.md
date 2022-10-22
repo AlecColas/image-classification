@@ -142,7 +142,7 @@ Ideas of improvement :
 
 - [ ] OPTIMIZATION : optimize computation for KNN method ;
   - [ ] #1 : OPTIMIZE distance_matrix() : use matrix instead of vectors and return a matrix of 50000 x 10000
-  - [ ] #2 : OPTIMIZE evaluate_knn() : when computing for k=20, we also compute for all k in [1,2,...,20]. So we could just use the labels retrieved with k=20 and use them for fewer k, instead of re-computing distance_matrix() for each k
+  - [x] #2 : OPTIMIZE evaluate_knn() : when computing for k=20, we also compute for all k in [1,2,...,20]. So we could just use the labels retrieved with k=20 and use them for fewer k, instead of re-computing distance_matrix() for each k
 - [ ] VISUALISATION : show the computed accuracy points lively ;
 - [ ] ARCHITECTURE : group functions in classes (1 class for each classification method, and 1 class to prepare the CIFAR-10 data).
 
