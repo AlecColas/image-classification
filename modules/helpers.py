@@ -3,7 +3,8 @@ from datetime import datetime
 
 
 def choose_classification_method():
-    """This function is a helper. It can be used to choose the classification method to evaluate.
+    """This function is a helper. It can be used to ask the classification method to evaluate.
+    While the user's input is invalid and script is running, it will ask a new value.
 
     Returns:
         int: Representing th chosen method : 
@@ -35,7 +36,8 @@ def choose_classification_method():
 
 
 def choose_split_factor():
-    """This function is a helper. It can be used to choose the split factor used to split CIFAR-10 data in training and test data.
+    """This function is a helper. It can be used to ask the split factor used to split CIFAR-10 data in training and test data.
+    While the user's input is invalid and script is running, it will ask a new value.
 
     Returns:
         float: the split factor between 0. and 1. The closer it is to 1, the smaller test data will be.
@@ -65,7 +67,8 @@ def choose_split_factor():
 
 
 def choose_to_save():
-    """This function is a helper. It can be used to choose whether to save the plotted figure or not.
+    """This function is a helper. It can be used to ask whether to save the plotted figure or not.
+    While the user's input is invalid and script is running, it will ask a new value.
 
     Returns:
         int: 0 if the user decided to not save the figure, 1 if he decided to save it.
