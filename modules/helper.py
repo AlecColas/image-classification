@@ -48,6 +48,32 @@ def choose_split_factor():
     return split_factor
 
 
+def choose_to_save():
+    save = 'n'
+    save_test = False
+
+    while not save_test:
+        save = input(
+            '\nSAVE PLOT :\nDo you want to save the current plot : type [y/yes] for yes and [n/no] for no.\nYou entered : ')
+
+        try:
+            if (save in ['y', 'yes', 'n', 'no']):
+                save_test = True
+
+            else:
+                print('You must enter [y/yes] or [n/no] to choose :',
+                      save, 'is invalid')
+                save_test = False
+        except Exception as e:
+            save_test = False
+            print(e)
+
+    if (save in ['n', 'no']):
+        return 0
+    else:
+        return 1
+
+
 def plot_and_save_fig(k_max, accuracies, split_factor):
     print('Plotting figure')
 
@@ -66,8 +92,10 @@ def plot_and_save_fig(k_max, accuracies, split_factor):
     plt.ylabel('Accuracy')
     plt.title('KNN method accuracy using CIFAR-10 data')
     plt.legend()
-
-    fig.savefig('results/knn'+str(datetime.now())+'.png')
     plt.show()
+
+    save = choose_to_save()
+    if (save == 1):
+        fig.savefig('results/knn'+str(datetime.now())+'.png')
 
     return
