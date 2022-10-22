@@ -169,6 +169,8 @@ def evaluate_knn_optimized(data_train, labels_train, data_test, labels_test, k_m
     computed_labels_for_k_max_neighbors = knn_predict(
         dists, labels_train, k_max)
 
+    # retrieve the classification (most common computed label) for each image, and for each k in range(1, k_max)
+    # element k of computed_labels_for_test_images is an array containing the computed labels of test images for k
     computed_labels_for_test_images = []
     for i in range(1, k_max+1):
         computed_labels_for_test_images_for_k = classify_with_mode(
