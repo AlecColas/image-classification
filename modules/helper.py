@@ -3,6 +3,15 @@ from datetime import datetime
 
 
 def choose_classification_method():
+    """This function is a helper. It can be used to choose the classification method to evaluate.
+
+    Returns:
+        int: Representing th chosen method : 
+        - 0 for unoptimized KNN method
+        - 1 for optimized KNN
+        - 2 for Neural Networks
+    """
+
     method_int = 0
     method_int_test = False
 
@@ -26,6 +35,13 @@ def choose_classification_method():
 
 
 def choose_split_factor():
+    """This function is a helper. It can be used to choose the split factor used to split CIFAR-10 data in training and test data.
+
+    Returns:
+        float: the split factor between 0. and 1. The closer it is to 1, the smaller test data will be.
+            Example : with split_factor = 0.8 : 80% data will be training data, and 20% will be test data.
+    """
+
     split_factor = 1
     split_test = False
 
@@ -49,6 +65,12 @@ def choose_split_factor():
 
 
 def choose_to_save():
+    """This function is a helper. It can be used to choose whether to save the plotted figure or not.
+
+    Returns:
+        int: 0 if the user decided to not save the figure, 1 if he decided to save it.
+    """
+
     save = 'n'
     save_test = False
 
@@ -75,6 +97,14 @@ def choose_to_save():
 
 
 def plot_and_save_fig(k_max, accuracies, split_factor):
+    """This function is a helper. It plots the accuracy of KNN method as a function of K with matplotlib and save the figure if wanted.
+
+    Args:
+        k_max (int): The maximum number of neighbors used to evaluate the classification method.
+        accuracies (List[int]): The computed accuracies of KNN method for k in range (1,k_max).
+        split_factor (float): The split factor used to split CIFAR-10 data in training and test data.
+    """
+
     print('Plotting figure')
 
     range_k_max = range(1, k_max+1, 1)
