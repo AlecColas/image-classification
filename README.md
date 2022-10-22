@@ -127,6 +127,11 @@ The [Makefile](Makefile) groups all usefull commands for this project :
 
 The [main script](main.py) is the executable part of this project. It can be easily run using the method contained in the [Makefile](Makefile).
 
+<figure>
+<img src="assets/project_architecture.png" alt="Trulli" style="width:100%">
+<figcaption align = "center"><b>Drawing of this project's architecture</b></figcaption>
+</figure>
+
 Functions used for each classification method are contained in files under the directory [modules/](modules/).
 
 Some helper functions for example choosing a classification method, choosing the value of the split factor or plotting results are contained in the [helper file](modules/helper.py)
