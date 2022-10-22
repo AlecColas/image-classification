@@ -4,7 +4,7 @@ import numpy as np
 
 
 def read_cifar_batch(file_path: str):
-    """This functions extracts CIFAR data from one batch and converts the (data) and (labels) to arrays of type (np.float32) and (np.int64) respectively.
+    """Extracts CIFAR data from one batch and converts the (data) and (labels) to arrays of type (np.float32) and (np.int64) respectively.
 
     Args:
         file_path (str): path of the CIFAR batch file to read.
@@ -26,7 +26,7 @@ def read_cifar_batch(file_path: str):
 
 
 def read_cifar(folder_path: str):
-    """This function extracts data contained in all CIFAR-10 data batches and returns the concatenated data and labels arrays.
+    """Extracts data contained in all CIFAR-10 data batches and returns the concatenated data and labels arrays.
 
     Args:
         folder_path (str): path of the directory containing CIFAR-10 data to extract and concatenate.
@@ -56,7 +56,7 @@ def read_cifar(folder_path: str):
 
 
 def split_dataset(data, labels, split: float):
-    """This function splits CIFAR-10 concatenated dataset into a training set and a test set according to a given split_factor.
+    """Splits CIFAR-10 concatenated dataset into a training set and a test set according to a given split_factor.
     Splitting is done randomly so that two successive calls shouldn't give the same output.
     CIFAR-10 dataset are partitioned in data and corresponding labels arrays.
 
