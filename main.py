@@ -1,6 +1,6 @@
-from knn import evaluate_knn, evaluate_knn_optimized
-from read_cifar import read_cifar, split_dataset
-from helpers import choose_classification_method, choose_split_factor, plot_and_save_fig
+from modules.knn import evaluate_knn, evaluate_knn_optimized
+from modules.read_cifar import read_cifar, split_dataset
+from modules.helpers import choose_classification_method, choose_split_factor, plot_and_save_fig
 
 chosen_method = choose_classification_method()
 split_factor = choose_split_factor()
