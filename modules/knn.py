@@ -1,5 +1,4 @@
 import numpy as np
-from scipy import stats
 
 
 def distance_matrix(train, test):
@@ -63,7 +62,13 @@ def classify_with_mode(labels_of_knn):
         np.ndarray(np.int64): a list of the most common labels in the passed array along to the y-axis.
     """
 
-    return stats.mode(labels_of_knn, axis=0, keepdims=False).mode
+    predicted_labels = []
+
+    for k in range(np.shape(labels_of_knn)[1]):
+        predicted_labels.append(
+            np.array(np.bincount(labels_of_knn[:, k]).argmax()))
+
+    return np.array(predicted_labels)
 
 
 def compute_accuracy(labels_test, computed_labels) -> float:
@@ -76,6 +81,9 @@ def compute_accuracy(labels_test, computed_labels) -> float:
     Returns:
         float: the computed accuracy.
     """
+
+    if (len(labels_test) != len(computed_labels)):
+        raise ValueError('Input arrays shape do not match')
 
     nb_labels = len(labels_test)
     nb_well_classified = np.count_nonzero(labels_test == computed_labels)
