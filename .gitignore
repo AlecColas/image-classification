@@ -164,3 +164,6 @@ data/
 
 #TODO List 
 TODO
+.vscode
+.vscode/
+.vscode/settings.json
