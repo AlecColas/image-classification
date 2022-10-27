@@ -35,7 +35,9 @@ def learn_once_mse(w1, b1, w2, b2, data, targets, learning_rate):
 
     # Compute loss (MSE)
     loss = np.mean(np.square(predictions - targets))
+    accuracy = np.count_nonzero(predictions == targets)/len(targets)
     print('MSE Loss before learning :', loss)
+    print('Accuracy is : ', accuracy)
 
     # Gradient computation
     dC_da2 = 2*(a2 - targets)
@@ -53,7 +55,7 @@ def learn_once_mse(w1, b1, w2, b2, data, targets, learning_rate):
     w2 += learning_rate * dC_dw2
     b2 += learning_rate * dC_db2
 
-    return (w1, b1, w2, b2, loss)
+    return (w1, b1, w2, b2, loss, accuracy)
 
 
 def learn_once_cross_entropy(w1, b1, w2, b2, data, targets, learning_rate):
@@ -73,7 +75,9 @@ def learn_once_cross_entropy(w1, b1, w2, b2, data, targets, learning_rate):
     targets_one_hot = one_hot(targets)
     # Compute loss (Cross Entropy)
     loss = - np.mean(targets_one_hot * np.log(predictions))
+    accuracy = np.count_nonzero(predictions == targets)/len(targets)
     print('Loss before learning with cross entropy :', loss)
+    print('Accuracy is : ', accuracy)
 
     # Gradient computation
     ''' We admit that $`\frac{partial C}{partial Z^{(2)}} = A^{(2)} - Y`$. 
@@ -92,7 +96,7 @@ def learn_once_cross_entropy(w1, b1, w2, b2, data, targets, learning_rate):
     w2 += learning_rate * dC_dw2
     b2 += learning_rate * dC_db2
 
-    return (w1, b1, w2, b2, loss)
+    return (w1, b1, w2, b2, loss, accuracy)
 
 
 def train_mlp(w1, b1, w2, b2, data_train, labels_train, learning_rate, num_epoch):
@@ -100,10 +104,10 @@ def train_mlp(w1, b1, w2, b2, data_train, labels_train, learning_rate, num_epoch
 
     for k in range(num_epoch):
         print('Training MLP for epoch number :', k)
-        (w1, b1, w2, b2, loss) = learn_once_cross_entropy(
+        (w1, b1, w2, b2, loss, accuracy) = learn_once_cross_entropy(
             w1, b1, w2, b2, data_train, labels_train, learning_rate)
 
-        train_accuracies[k] = loss
+        train_accuracies[k] = accuracy
 
     return (w1, b1, w2, b2, train_accuracies)
 
@@ -129,7 +133,7 @@ def test_mlp(w1, b1, w2, b2, data_test, labels_test):
 
 def run_mlp_training(data_train, labels_train, data_test, labels_test, d_h, learning_rate, num_epoch):
     d_in = np.shape(data_train)[1]
-    d_out = 1
+    d_out = 10
 
     # Random initialization of the network weights and biaises
     w1 = 2 * np.random.rand(d_in, d_h) - 1  # first layer weights
