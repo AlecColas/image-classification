@@ -38,4 +38,6 @@ elif (chosen_method == 2):
     (train_accuracies, final_accuracy) = run_mlp_training(data_train, labels_train, data_test,
                                                           labels_test, 64, 0.1, num_epoch)
 
+    print("Final accuracy for test data is :", round(final_accuracy*100, 4))
+
     plot_and_save_fig(num_epoch, train_accuracies, split_factor)

@@ -20,6 +20,8 @@ def one_hot(labels):
 
 
 def learn_once_mse(w1, b1, w2, b2, data, targets, learning_rate):
+    # resize targets
+    targets = np.resize(targets, (len(targets), 1))
 
     # Forward pass
     a0 = data  # the data are the input of the first layer
@@ -55,6 +57,8 @@ def learn_once_mse(w1, b1, w2, b2, data, targets, learning_rate):
 
 
 def learn_once_cross_entropy(w1, b1, w2, b2, data, targets, learning_rate):
+    # resize targets
+    targets = np.resize(targets, (len(targets), 1))
 
     # Forward pass
     a0 = data  # the data are the input of the first layer
@@ -95,6 +99,7 @@ def train_mlp(w1, b1, w2, b2, data_train, labels_train, learning_rate, num_epoch
     train_accuracies = np.zeros((num_epoch, 1))
 
     for k in range(num_epoch):
+        print('Training MLP for epoch number :', k)
         (w1, b1, w2, b2, loss) = learn_once_cross_entropy(
             w1, b1, w2, b2, data_train, labels_train, learning_rate)
 
