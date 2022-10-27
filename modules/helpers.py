@@ -18,15 +18,15 @@ def choose_classification_method():
 
     while not method_int_test:
         str_method_int = input(
-            '\nMETHOD :\nChoose the method you want to use to classify CIFAR-10 images :  0 - KNN (unoptimized), 1 - KNN (optimized)\nYou entered : ')
+            '\nMETHOD :\nChoose the method you want to use to classify CIFAR-10 images :  0 - KNN (unoptimized), 1 - KNN (optimized), 2 - NN MLP (Neural Network)\nYou entered : ')
 
         try:
             method_int = int(str_method_int)
-            if (type(method_int) == int) and (0 <= method_int <= 1):
+            if (type(method_int) == int) and (0 <= method_int <= 2):
                 method_int_test = True
 
             else:
-                print('You must choose a method among : 0 - KNN (unoptimized), 1 - KNN (optimized)\n',
+                print('You must choose a method among : 0 - KNN (unoptimized), 1 - KNN (optimized), 2 - NN MLP (Neural Network)\n',
                       method_int, 'is invalid')
                 method_int_test = False
         except Exception as e:
@@ -99,7 +99,7 @@ def choose_to_save():
         return 1
 
 
-def plot_and_save_fig(k_max, accuracies, split_factor):
+def plot_and_save_fig(x_max, accuracies, split_factor):
     """This function is a helper. It plots the accuracy of KNN method as a function of K with matplotlib and save the figure if wanted.
 
     Args:
@@ -110,7 +110,7 @@ def plot_and_save_fig(k_max, accuracies, split_factor):
 
     print('Plotting figure')
 
-    range_k_max = range(1, k_max+1, 1)
+    range_k_max = range(1, x_max+1, 1)
     list_k = list(range_k_max)
     default_x_ticks = range_k_max
 
