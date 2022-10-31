@@ -99,7 +99,7 @@ def choose_to_save():
         return 1
 
 
-def plot_and_save_fig(x_max, accuracies, split_factor):
+def plot_and_save_fig(x_max, accuracies, split_factor, name):
     """This function is a helper. It plots the accuracy of KNN method as a function of K with matplotlib and save the figure if wanted.
 
     Args:
@@ -129,6 +129,6 @@ def plot_and_save_fig(x_max, accuracies, split_factor):
 
     save = choose_to_save()
     if (save == 1):
-        fig.savefig('results/knn'+str(datetime.now())+'.png')
+        fig.savefig('results/'+name+str(datetime.now())+'.png')
 
     return
