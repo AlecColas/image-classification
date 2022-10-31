@@ -1,18 +1,26 @@
+"""Functions to perform KNN classification with a split dataset.
+
+The entry points are evaluate_knn() or evaluate_knn_optimized().
+"""
+
 import numpy as np
 
 
 def distance_matrix(train, test):
-    """Returns the L2 Euclidean distance matrix between two matrixes of shape (n,m) and (m,p).
+    """Return the L2 Euclidean distance matrix between two matrixes of shape (n,m) and (m,p).
 
-    Args:
-        train (np.ndarray(np.float32)): The training images data matrix of shape (n,m).
-        test (np.ndarray(np.float32)): The test images data matrix of shape (m,p).
+    Parameters
+    ----------
+    train : np.ndarray(np.float32)
+        The training images data matrix of shape (n,m).
+    test : np.ndarray(np.float32)
+        The test images data matrix of shape (m,p).
 
-    Returns:
-        np.ndarray(np.float32): The L2 Euclidean distance matrix between train and test, of shape (n,p).
-
+    Returns
+    -------
+    np.ndarray(np.float32)
+        The L2 Euclidean distance matrix between train and test, of shape (n,p).
     """
-
     print("Computing distance matrix between train and test sets")
 
     train2 = train * train
@@ -28,18 +36,24 @@ def distance_matrix(train, test):
 
 
 def knn_predict(dists, labels_train, k=1):
-    """Computes the k-nearest neighbors labels for each image of data_test using distances between training data and test data.
+    """Compute the k-nearest neighbors labels for each image of data_test using distances between training data and test data.
+
     The distance minima are sorted along the y-axis, each column of dists corresponding to the distances between one test image and all training images.
 
-    Args:
-        dists (np.ndarray(np.float32)): the distance matrix between the train set and the test set.
-        labels_train (np.ndarray(np.int64)): the corresponding labels of training data.
-        k (int, optional): the chosen number of neighbors. Defaults to 1.
+    Parameters
+    ----------
+    dists : np.ndarray(np.float32)
+        The distance matrix between the train set and the test set.
+    labels_train : np.ndarray(np.int64)
+        The corresponding labels of training data.
+    k : int, optional
+        The chosen number of neighbors, by default 1.
 
-    Returns:
-        np.ndarray(np.int64): the predicted labels for the images of data_test.
+    Returns
+    -------
+    np.ndarray(np.int64)
+        The predicted labels for the images of data_test.
     """
-
     print("Extracting labels of k nearest neighbors")
 
     if k <= 0 or k > np.shape(dists)[0]:
@@ -52,16 +66,18 @@ def knn_predict(dists, labels_train, k=1):
 
 
 def classify_with_mode(labels_of_knn):
-    """Computes classification of test images according to the most common label of their k-nearest neighbors in training data.
+    """Compute classification of test images according to the most common label of their k-nearest neighbors in training data.
 
-    Args:
-        labels_of_knn (np.ndarray(np.int64)): an array of the computed possible labels for the images of data_test.
-        Each column corresponds to the k labels of the nearest images to one test image.
+    Parameters
+    ----------
+    labels_of_knn : np.ndarray(np.int64)
+        array of the computed possible labels for the images of data_test.
 
-    Returns:
-        np.ndarray(np.int64): a list of the most common labels in the passed array along to the y-axis.
+    Returns
+    -------
+    np.ndarray(np.int64)
+        List of the most common labels in the passed array along to the y-axis.
     """
-
     predicted_labels = []
 
     for k in range(np.shape(labels_of_knn)[1]):
@@ -71,16 +87,25 @@ def classify_with_mode(labels_of_knn):
 
 
 def compute_accuracy(labels_test, computed_labels) -> float:
-    """Computes the classification rate (accuracy) of a method by comparing computed labels to true labels of test data.
+    """Compute the classification rate (accuracy) of a method by comparing computed labels to true labels of test data.
 
-    Args:
-        labels_test (np.ndarray(np.int64)): the true labels of test images.
-        computed_labels (np.ndarray(np.int64)): the computed labels of test images.
+    Parameters
+    ----------
+    labels_test : np.ndarray(np.int64)
+        The true labels of test images.
+    computed_labels : np.ndarray(np.int64)
+        The computed labels of test images.
 
-    Returns:
-        float: the computed accuracy.
+    Returns
+    -------
+    float
+        The computed accuracy.
+
+    Raises
+    ------
+    ValueError
+        In case the computed test labels and the true test labels arrays shapes do not match.
     """
-
     if len(labels_test) != len(computed_labels):
         raise ValueError("Input arrays shape do not match")
 
@@ -91,19 +116,26 @@ def compute_accuracy(labels_test, computed_labels) -> float:
 
 
 def evaluate_knn(data_train, labels_train, data_test, labels_test, k: int):
-    """Evaluates the classification rate of one knn method given k.
+    """Evaluate the classification rate of one knn method given k.
 
-    Args:
-        data_train (np.ndarray(np.float32)): the training data, and
-        labels_train (np.ndarray(np.int64)): the corresponding labels.
-        data_test (np.ndarray(np.float32)): the test data, and
-        labels_test (np.ndarray(np.int64)): the corresponding labels.
-        k (int): the chosen number of neighbors.
+    Parameters
+    ----------
+    data_train : np.ndarray(np.float32)
+        The training data, and
+    labels_train : np.ndarray(np.int64)
+        the corresponding labels.
+    data_test : np.ndarray(np.float32)
+        The test data, and
+    labels_test : np.ndarray(np.int64)
+        the corresponding labels.
+    k : int
+        The chosen number of neighbors.
 
-    Returns:
-        float: the classification rate (accuracy) of this k-nn method.
+    Returns
+    -------
+    float
+        The classification rate (accuracy) of this k-nn method.
     """
-
     L_data_train = np.shape(data_train)[0]
 
     if k <= 0 or k > L_data_train:
@@ -118,17 +150,22 @@ def evaluate_knn(data_train, labels_train, data_test, labels_test, k: int):
 
 
 def compute_accuracy_for_range_k(labels_test, computed_labels_for_k_max, k_max):
-    """Computes the classification rate (accuracy) of a knn methods for k in range(1, k_max) by comparing computed labels to true labels of test data.
+    """Compute the classification rate (accuracy) of a knn methods for k in range(1, k_max) by comparing computed labels to true labels of test data.
 
-    Args:
-        labels_test (np.ndarray(np.int64)): the true labels of test images.
-        computed_labels_for_all_k (np.ndarray(np.int64)): the computed labels of test images for k = k_max
-        k_max (int): the chosen maximum number of neighbors.
+    Parameters
+    ----------
+    labels_test : np.ndarray(np.int64)
+        The true labels of test images.
+    computed_labels_for_k_max : np.ndarray(np.int64)
+        The computed labels of test images for k = k_max.
+    k_max : _type_
+        The maximum number of neighbors chosen.
 
-    Returns:
-        list(float): the list of accuracies for knn methods for k in range (1, k_max)
+    Returns
+    -------
+    list(float)
+        The list of accuracies for knn methods for k in range (1, k_max).
     """
-
     print("Computing accuracies")
     nb_labels = len(labels_test)
 
@@ -154,19 +191,26 @@ def compute_accuracy_for_range_k(labels_test, computed_labels_for_k_max, k_max):
 def evaluate_knn_optimized(
     data_train, labels_train, data_test, labels_test, k_max: int
 ):
-    """An optimized version of evaluate_knn() that computes the classification rate of knn methods for k in range(1, k_max).
+    """Optimized version of evaluate_knn() that computes the classification rate of knn methods for k in range(1, k_max).
 
-    Args:
-        data_train (np.ndarray(np.float32)): the training data, and
-        labels_train (np.ndarray(np.int64)): the corresponding labels.
-        data_test (np.ndarray(np.float32)): the test data, and
-        labels_test (np.ndarray(np.int64)): the corresponding labels.
-        k_max (int): the chosen maximum number of neighbors.
+    Parameters
+    ----------
+    data_train : np.ndarray(np.float32)
+        The training data, and
+    labels_train : np.ndarray(np.int64)
+        the corresponding labels.
+    data_test : np.ndarray(np.float32)
+        The test data, and
+    labels_test : np.ndarray(np.int64)
+        the corresponding labels.
+    k_max : int
+        The maximum number of neighbors chosen.
 
-    Returns:
-        list(float): the accuracy list of knn methods for k in range(1, k_max).
+    Returns
+    -------
+    list(float)
+        The accuracy list of knn methods for k in range(1, k_max).
     """
-
     print("Starting knn evaluation")
 
     # check if k_max value is correct

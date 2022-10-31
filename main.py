@@ -1,3 +1,8 @@
+"""Main script.
+
+When launched, it guides the user from choosing a classification method and its parameters to plotting and saving the data.
+"""
+
 from modules.helpers import (
     choose_classification_method,
     choose_split_factor,

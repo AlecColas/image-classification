@@ -1,10 +1,13 @@
+"""This module groups the helpers function, which means, the functions used to ask questions to the user and manage its answers."""
+
 from datetime import datetime
 
 from matplotlib import pyplot as plt
 
 
 def choose_classification_method():
-    """This function is a helper. It can be used to ask the classification method to evaluate.
+    """Can be used to ask the classification method to evaluate.
+
     While the user's input is invalid and script is running, it will ask a new value.
 
     Returns:
@@ -13,7 +16,6 @@ def choose_classification_method():
         - 1 for optimized KNN
         - 2 for Neural Networks
     """
-
     method_int = 0
     method_int_test = False
 
@@ -41,14 +43,14 @@ def choose_classification_method():
 
 
 def choose_split_factor():
-    """This function is a helper. It can be used to ask the split factor used to split CIFAR-10 data in training and test data.
+    """Can be used to ask the split factor used to split CIFAR-10 data in training and test data.
+
     While the user's input is invalid and script is running, it will ask a new value.
 
     Returns:
         float: the split factor between 0. and 1. The closer it is to 1, the smaller test data will be.
             Example : with split_factor = 0.8 : 80% data will be training data, and 20% will be test data.
     """
-
     split_factor = 1
     split_test = False
 
@@ -76,13 +78,13 @@ def choose_split_factor():
 
 
 def choose_to_save():
-    """This function is a helper. It can be used to ask whether to save the plotted figure or not.
+    """Can be used to ask whether to save the plotted figure or not.
+
     While the user's input is invalid and script is running, it will ask a new value.
 
     Returns:
         int: 0 if the user decided to not save the figure, 1 if he decided to save it.
     """
-
     save = "n"
     save_test = False
 
@@ -111,14 +113,16 @@ def choose_to_save():
 
 
 def plot_and_save_fig(x_max, accuracies, split_factor, name):
-    """This function is a helper. It plots the accuracy of KNN method as a function of K with matplotlib and save the figure if wanted.
+    """Plot the accuracy of a classification method.
+
+    When using KNN, it will plot the accuracy over k (he number of nearest neighbors used for classification).
+    When using NN, it will plot the accuracy over the number of epochs spent in training.
 
     Args:
         k_max (int): The maximum number of neighbors used to evaluate the classification method.
         accuracies (List[int]): The computed accuracies of KNN method for k in range (1,k_max).
         split_factor (float): The split factor used to split CIFAR-10 data in training and test data.
     """
-
     print("Plotting figure")
 
     range_k_max = range(1, x_max + 1, 1)
