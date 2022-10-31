@@ -8,7 +8,7 @@ def choose_classification_method():
     While the user's input is invalid and script is running, it will ask a new value.
 
     Returns:
-        int: Representing th chosen method : 
+        int: Representing th chosen method :
         - 0 for unoptimized KNN method
         - 1 for optimized KNN
         - 2 for Neural Networks
@@ -19,7 +19,8 @@ def choose_classification_method():
 
     while not method_int_test:
         str_method_int = input(
-            '\nMETHOD :\nChoose the method you want to use to classify CIFAR-10 images :  0 - KNN (unoptimized), 1 - KNN (optimized), 2 - NN MLP (Neural Network)\nYou entered : ')
+            "\nMETHOD :\nChoose the method you want to use to classify CIFAR-10 images :  0 - KNN (unoptimized), 1 - KNN (optimized), 2 - NN MLP (Neural Network)\nYou entered : "
+        )
 
         try:
             method_int = int(str_method_int)
@@ -27,8 +28,11 @@ def choose_classification_method():
                 method_int_test = True
 
             else:
-                print('You must choose a method among : 0 - KNN (unoptimized), 1 - KNN (optimized), 2 - NN MLP (Neural Network)\n',
-                      method_int, 'is invalid')
+                print(
+                    "You must choose a method among : 0 - KNN (unoptimized), 1 - KNN (optimized), 2 - NN MLP (Neural Network)\n",
+                    method_int,
+                    "is invalid",
+                )
                 method_int_test = False
         except Exception as e:
             method_int_test = False
@@ -50,16 +54,20 @@ def choose_split_factor():
 
     while not (split_test):
         str_split_factor = input(
-            '\nSPLIT FACTOR :\nEnter a float between 0 and 1 which determines the split factor between training and test sets.\nYou entered : ')
+            "\nSPLIT FACTOR :\nEnter a float between 0 and 1 which determines the split factor between training and test sets.\nYou entered : "
+        )
 
         try:
             split_factor = float(str_split_factor)
-            if (type(split_factor) == float) and (0. < split_factor < 1.):
+            if (type(split_factor) == float) and (0.0 < split_factor < 1.0):
                 split_test = True
 
             else:
-                print('You must enter a float between 0 and 1 :',
-                      split_factor, 'is invalid')
+                print(
+                    "You must enter a float between 0 and 1 :",
+                    split_factor,
+                    "is invalid",
+                )
                 split_test = False
         except Exception as e:
             split_test = False
@@ -75,26 +83,28 @@ def choose_to_save():
         int: 0 if the user decided to not save the figure, 1 if he decided to save it.
     """
 
-    save = 'n'
+    save = "n"
     save_test = False
 
     while not save_test:
         save = input(
-            '\nSAVE PLOT :\nDo you want to save the current plot : type [y/yes] for yes and [n/no] for no.\nYou entered : ')
+            "\nSAVE PLOT :\nDo you want to save the current plot : type [y/yes] for yes and [n/no] for no.\nYou entered : "
+        )
 
         try:
-            if (save in ['y', 'yes', 'n', 'no']):
+            if save in ["y", "yes", "n", "no"]:
                 save_test = True
 
             else:
-                print('You must enter [y/yes] or [n/no] to choose :',
-                      save, 'is invalid')
+                print(
+                    "You must enter [y/yes] or [n/no] to choose :", save, "is invalid"
+                )
                 save_test = False
         except Exception as e:
             save_test = False
             print(e)
 
-    if (save in ['n', 'no']):
+    if save in ["n", "no"]:
         return 0
     else:
         return 1
@@ -109,30 +119,36 @@ def plot_and_save_fig(x_max, accuracies, split_factor, name):
         split_factor (float): The split factor used to split CIFAR-10 data in training and test data.
     """
 
-    print('Plotting figure')
+    print("Plotting figure")
 
-    range_k_max = range(1, x_max+1, 1)
+    range_k_max = range(1, x_max + 1, 1)
     list_k = list(range_k_max)
 
     fig = plt.figure()
-    plt.plot(list_k, accuracies, marker='o',
-             linestyle='--', color='b', label='split_factor = '+str(split_factor))
+    plt.plot(
+        list_k,
+        accuracies,
+        marker="o",
+        linestyle="--",
+        color="b",
+        label="split_factor = " + str(split_factor),
+    )
 
-    plt.title(name+' method accuracy using CIFAR-10 data')
-    plt.grid(True, which='both')
-    plt.ylabel('Accuracy')
+    plt.title(name + " method accuracy using CIFAR-10 data")
+    plt.grid(True, which="both")
+    plt.ylabel("Accuracy")
     plt.legend()
 
-    if (name == 'knn'):
+    if name == "knn":
         default_x_ticks = range_k_max
         plt.xticks(default_x_ticks, list_k)
-        plt.xlabel('k number of neighbors')
+        plt.xlabel("k number of neighbors")
     else:
-        plt.xlabel('Epoch number')
+        plt.xlabel("Epoch number")
     plt.show()
 
     save = choose_to_save()
-    if (save == 1):
-        fig.savefig('results/'+name+str(datetime.now())+'.png')
+    if save == 1:
+        fig.savefig("results/" + name + str(datetime.now()) + ".png")
 
     return

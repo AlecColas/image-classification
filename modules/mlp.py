@@ -10,7 +10,7 @@ def softmax(x):
 def one_hot(labels):
     nb_rows = labels.size
 
-    hot_labels = np.zeros((nb_rows, labels.max()+1))
+    hot_labels = np.zeros((nb_rows, labels.max() + 1))
     hot_labels[np.arange(nb_rows), labels] = 1
 
     return hot_labels
@@ -37,21 +37,21 @@ def learn_once_mse(w1, b1, w2, b2, data, targets, learning_rate):
 
     # compute accuracy
     classification = np.argmax(predictions, axis=1, keepdims=True)
-    accuracy = np.count_nonzero(classification[:, 0] == targets)/len(targets)
+    accuracy = np.count_nonzero(classification[:, 0] == targets) / len(targets)
 
-    print('MSE Loss before learning :', loss)
-    print('Accuracy is : ', accuracy)
+    print("MSE Loss before learning :", loss)
+    print("Accuracy is : ", accuracy)
 
     # Gradient computation
-    dC_da2 = 2*(a2 - r_targets)/N
-    dC_dz2 = dC_da2 * (a2-np.square(a2))
+    dC_da2 = 2 * (a2 - r_targets) / N
+    dC_dz2 = dC_da2 * (a2 - np.square(a2))
     dC_dw2 = np.matmul(a1.T, dC_dz2)
-    dC_db2 = np.sum(dC_dz2, axis=0, keepdims=True)/N
+    dC_db2 = np.sum(dC_dz2, axis=0, keepdims=True) / N
 
     dC_da1 = np.matmul(dC_dz2, w2.T)
     dC_dz1 = dC_da1 * (a1 - np.square(a1))
     dC_dw1 = np.matmul(a0.T, dC_dz1)
-    dC_db1 = np.sum(dC_dz1, axis=0, keepdims=True)/N
+    dC_db1 = np.sum(dC_dz1, axis=0, keepdims=True) / N
 
     w1 -= learning_rate * dC_dw1
     b1 -= learning_rate * dC_db1
@@ -76,27 +76,28 @@ def learn_once_cross_entropy(w1, b1, w2, b2, data, labels_train, learning_rate):
 
     targets_one_hot = one_hot(labels_train)
     # Compute loss (Cross Entropy)
-    loss = - np.mean(targets_one_hot * np.log(predictions))
+    loss = -np.mean(targets_one_hot * np.log(predictions))
 
     # Compute accuracy
     classification = np.argmax(predictions, axis=1, keepdims=True)
-    accuracy = np.count_nonzero(
-        classification[:, 0] == labels_train)/len(labels_train)
+    accuracy = np.count_nonzero(classification[:, 0] == labels_train) / len(
+        labels_train
+    )
 
-    print('Loss before learning with cross entropy :', loss)
-    print('Accuracy is : ', accuracy)
+    print("Loss before learning with cross entropy :", loss)
+    print("Accuracy is : ", accuracy)
 
     # Gradient computation
-    ''' We admit that $`\frac{partial C}{partial Z^{(2)}} = A^{(2)} - Y`$.
-    Where $`Y`$ is a one-hot vector encoding the label. '''
+    """ We admit that $`\frac{partial C}{partial Z^{(2)}} = A^{(2)} - Y`$.
+    Where $`Y`$ is a one-hot vector encoding the label. """
     dC_dz2 = a2 - targets_one_hot
-    dC_dw2 = np.matmul(a1.T, dC_dz2)/N
-    dC_db2 = np.sum(dC_dz2, axis=0, keepdims=True)/N
+    dC_dw2 = np.matmul(a1.T, dC_dz2) / N
+    dC_db2 = np.sum(dC_dz2, axis=0, keepdims=True) / N
 
     dC_da1 = np.matmul(dC_dz2, w2.T)
     dC_dz1 = dC_da1 * (a1 - np.square(a1))
-    dC_dw1 = np.matmul(a0.T, dC_dz1)/N
-    dC_db1 = np.sum(dC_dz1, axis=0, keepdims=True)/N
+    dC_dw1 = np.matmul(a0.T, dC_dz1) / N
+    dC_db1 = np.sum(dC_dz1, axis=0, keepdims=True) / N
 
     w1 -= learning_rate * dC_dw1
     b1 -= learning_rate * dC_db1
@@ -111,9 +112,10 @@ def train_mlp(w1, b1, w2, b2, data_train, labels_train, learning_rate, num_epoch
     train_losses = np.zeros((num_epochs, 1))
 
     for k in range(num_epochs):
-        print('Training MLP for epoch number :', k)
+        print("Training MLP for epoch number :", k)
         (w1, b1, w2, b2, loss, accuracy) = learn_once_cross_entropy(
-            w1, b1, w2, b2, data_train, labels_train, learning_rate)
+            w1, b1, w2, b2, data_train, labels_train, learning_rate
+        )
 
         train_losses[k] = loss
         train_accuracies[k] = accuracy
@@ -121,7 +123,7 @@ def train_mlp(w1, b1, w2, b2, data_train, labels_train, learning_rate, num_epoch
     return (w1, b1, w2, b2, train_accuracies, train_losses)
 
 
-def test_mlp(w1, b1, w2, b2, data_test, labels_test):
+def final_test_mlp(w1, b1, w2, b2, data_test, labels_test):
 
     # Forward pass
     a0 = data_test  # the data are the input of the first layer
@@ -142,7 +144,9 @@ def test_mlp(w1, b1, w2, b2, data_test, labels_test):
     return accuracy
 
 
-def run_mlp_training(data_train, labels_train, data_test, labels_test, d_h, learning_rate, num_epochs):
+def run_mlp_training(
+    data_train, labels_train, data_test, labels_test, d_h, learning_rate, num_epochs
+):
     d_in = np.shape(data_train)[1]
     d_out = 10
 
@@ -152,9 +156,10 @@ def run_mlp_training(data_train, labels_train, data_test, labels_test, d_h, lear
     w2 = 2 * np.random.rand(d_h, d_out) - 1  # second layer weights
     b2 = np.zeros((1, d_out))  # second layer biaises
 
-    (w1, b1, w2, b2, train_accuracies, train_losses) = train_mlp(w1, b1, w2,
-                                                                 b2, data_train, labels_train, learning_rate, num_epochs)
+    (w1, b1, w2, b2, train_accuracies, train_losses) = train_mlp(
+        w1, b1, w2, b2, data_train, labels_train, learning_rate, num_epochs
+    )
 
-    final_accuracy = test_mlp(w1, b1, w2, b2, data_test, labels_test)
+    final_accuracy = final_test_mlp(w1, b1, w2, b2, data_test, labels_test)
 
     return (train_accuracies, train_losses, final_accuracy)

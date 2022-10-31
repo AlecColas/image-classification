@@ -15,8 +15,8 @@ def read_cifar_batch(file_path: str):
         labels_in_int64 (np.ndarray(np.int32))   : corresponding labels extracted from CIFAR data.
     """
 
-    with open(file_path, 'rb') as fo:
-        dict = pickle.load(fo, encoding='bytes')
+    with open(file_path, "rb") as fo:
+        dict = pickle.load(fo, encoding="bytes")
     data_in_bytes = dict[b"data"]
     labels_in_bytes = dict[b"labels"]
 
@@ -37,21 +37,19 @@ def read_cifar(folder_path: str):
         concat_labels (np.ndarray(np.int32))  : corresponding labels extracted from all CIFAR-10 data batches.
     """
 
-    print('Extracting CIFAR-10 data')
+    print("Extracting CIFAR-10 data")
 
     axis_of_concat = 0
 
-    data_0 = read_cifar_batch(folder_path + '/test_batch')
+    data_0 = read_cifar_batch(folder_path + "/test_batch")
     concat_data = data_0[0]
     concat_labels = data_0[1]
 
     for i in range(1, 6):
-        data_i = read_cifar_batch(folder_path + '/data_batch_' + str(i))
+        data_i = read_cifar_batch(folder_path + "/data_batch_" + str(i))
 
-        concat_data = np.concatenate(
-            (concat_data, data_i[0]), axis_of_concat)
-        concat_labels = np.concatenate(
-            (concat_labels, data_i[1]), axis_of_concat)
+        concat_data = np.concatenate((concat_data, data_i[0]), axis_of_concat)
+        concat_labels = np.concatenate((concat_labels, data_i[1]), axis_of_concat)
 
     return (concat_data, concat_labels)
 
@@ -74,7 +72,7 @@ def split_dataset(data, labels, split: float):
         test_labels (np.ndarray(np.int64)): the corresponding labels.
     """
 
-    print('Splitting dataset')
+    print("Splitting dataset")
 
     nb_rows = len(data)
 

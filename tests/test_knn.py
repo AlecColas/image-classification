@@ -1,8 +1,13 @@
 import numpy as np
 import pytest
 
-from modules.knn import (classify_with_mode, compute_accuracy, distance_matrix,
-                         evaluate_knn, knn_predict)
+from modules.knn import (
+    classify_with_mode,
+    compute_accuracy,
+    distance_matrix,
+    evaluate_knn,
+    knn_predict,
+)
 
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
@@ -16,11 +21,23 @@ c1 = np.array([c, c])
 def test_distance_matrix():
     dists = distance_matrix(a1, b1)
     assert np.shape(dists) == (3, 2)
-    assert np.array_equal(dists, [[np.sqrt(27), np.sqrt(27)], ]*3)
+    assert np.array_equal(
+        dists,
+        [
+            [np.sqrt(27), np.sqrt(27)],
+        ]
+        * 3,
+    )
 
     dists1 = distance_matrix(a1, c1)
     assert np.shape(dists1) == (3, 2)
-    assert np.array_equal(dists1, [[np.sqrt(108), np.sqrt(108)], ]*3)
+    assert np.array_equal(
+        dists1,
+        [
+            [np.sqrt(108), np.sqrt(108)],
+        ]
+        * 3,
+    )
 
     return
 
@@ -97,12 +114,10 @@ def test_evaluate_knn():
     labels_test = np.array([0, 0, 0, 2])
     k = 1
 
-    accuracy = evaluate_knn(data_train, labels_train,
-                            data_test, labels_test, k)
+    accuracy = evaluate_knn(data_train, labels_train, data_test, labels_test, k)
     assert accuracy == 0.5
 
     k = 4
-    accuracy = evaluate_knn(data_train, labels_train,
-                            data_test, labels_test, k)
+    accuracy = evaluate_knn(data_train, labels_train, data_test, labels_test, k)
     assert accuracy == 0.75
     return
