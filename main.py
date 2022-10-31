@@ -48,4 +48,3 @@ elif chosen_method == 2:
     print("Final accuracy for test data is :", final_accuracy)
 
     plot_and_save_fig(num_epoch, train_accuracies, split_factor, "mlp")
-    plot_and_save_fig(num_epoch, train_losses, split_factor, "mlp loss")

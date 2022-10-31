@@ -1,7 +1,5 @@
 """This module groups the helpers function, which means, the functions used to ask questions to the user and manage its answers."""
 
-from datetime import datetime
-
 from matplotlib import pyplot as plt
 
 
