@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from modules.mlp import one_hot, softmax
+from mlp import one_hot, softmax
 
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
