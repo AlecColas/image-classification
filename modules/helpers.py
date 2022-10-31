@@ -119,7 +119,7 @@ def plot_and_save_fig(x_max, accuracies, split_factor, name):
     When using NN, it will plot the accuracy over the number of epochs spent in training.
 
     Args:
-        k_max (int): The maximum number of neighbors used to evaluate the classification method.
+        x_max (int): The maximum number of neighbors used to evaluate the classification method.
         accuracies (List[int]): The computed accuracies of KNN method for k in range (1,k_max).
         split_factor (float): The split factor used to split CIFAR-10 data in training and test data.
     """
