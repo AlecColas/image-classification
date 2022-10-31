@@ -49,7 +49,7 @@ elif chosen_method == 2:
         data_train, labels_train, data_test, labels_test, 64, 0.1, num_epoch
     )
 
-    print("Final accuracy for test data is :", round(final_accuracy * 100, 4))
+    print("Final accuracy for test data is :", final_accuracy)
 
     plot_and_save_fig(num_epoch, train_accuracies, split_factor, "mlp")
     plot_and_save_fig(num_epoch, train_losses, split_factor, "mlp loss")
