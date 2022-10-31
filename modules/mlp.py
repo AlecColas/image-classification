@@ -1,13 +1,42 @@
+"""Functions to perform classification with Artificial Neural Networks.
+
+The entry point is the function run_mlp_training().
+You can either choose to use Mean Square Error (MSE) or Cross Entropy as the error function in train_mlp().
+"""
+
 import numpy as np
 
 
 def softmax(x):
-    """Compute softmax values for each sets of scores in x."""
+    """Compute the softmax values for each sets (rows) of scores in x.
+
+    Parameters
+    ----------
+    x : np.ndarray(np.float32)
+        A 2-D array containing the correspondence scores between one image and each labels (coded in rows).
+
+    Returns
+    -------
+    np.ndarray(np.float32)
+        The softmax activated scores.
+    """
     exps = np.exp(x - np.max(x))
     return exps / np.sum(exps, axis=1, keepdims=True)
 
 
 def one_hot(labels):
+    """Return the one-hot matrix of label.
+
+    Parameters
+    ----------
+    labels : _type_
+        An (n)-D array of labels.
+
+    Returns
+    -------
+    _type_
+        The corresponding (n+1)-D one-hot matrix.
+    """
     nb_rows = labels.size
 
     hot_labels = np.zeros((nb_rows, labels.max() + 1))
@@ -17,6 +46,40 @@ def one_hot(labels):
 
 
 def learn_once_mse(w1, b1, w2, b2, data, targets, learning_rate):
+    """Perform one gradient descent step using the Mean Square Error (MSE).
+
+    Parameters
+    ----------
+    w1 : np.ndarray(np.float32)
+        The weight matrix (d_in x d_h) of the first (hidden) layer.
+    b1 : np.ndarray(np.float32)
+        The bias matrix (1, d_h) of the first (hidden) layer.
+    w2 : np.ndarray(np.float32)
+        The weight matrix (d_h x d_out) of the output layer.
+    b2 : np.ndarray(np.float32)
+        The bias matrix (1 x d_out) of the output layer.
+    data : np.ndarray(np.float32)
+        The input matrix (batch_size x d_in) containing training images in rows, and
+    targets : np.ndarray(np.int64)
+        the vector (batch_size) of corresponding labels for each image.
+    learning_rate : float
+        The learning rate.
+
+    Returns
+    -------
+    w1 : np.ndarray(np.float32)
+        The updated weight matrix (d_in x d_h) of the first (hidden) layer.
+    b1 : np.ndarray(np.float32)
+        The updated bias matrix (1, d_h) of the first (hidden) layer.
+    w2 : np.ndarray(np.float32)
+        The updated weight matrix (d_h x d_out) of the output layer.
+    b2 : np.ndarray(np.float32)
+        The updated bias matrix (1 x d_out) of the output layer.
+    loss : float
+        The value of the loss for one training epoch.
+    accuracy : float
+        The value of the accuracy for one training epoch.
+    """
     N = data.shape[0]
 
     # Resize targets from tuple to np.ndarray
@@ -62,6 +125,40 @@ def learn_once_mse(w1, b1, w2, b2, data, targets, learning_rate):
 
 
 def learn_once_cross_entropy(w1, b1, w2, b2, data, labels_train, learning_rate):
+    """Perform one gradient descent step using Cross Entropy (softmax activation function + one hot encoding of labels).
+
+    Parameters
+    ----------
+    w1 : np.ndarray(np.float32)
+        The weight matrix (d_in x d_h) of the first (hidden) layer.
+    b1 : np.ndarray(np.float32)
+        The bias matrix (1, d_h) of the first (hidden) layer.
+    w2 : np.ndarray(np.float32)
+        The weight matrix (d_h x d_out) of the output layer.
+    b2 : np.ndarray(np.float32)
+        The bias matrix (1 x d_out) of the output layer.
+    data : np.ndarray(np.float32)
+        The input matrix (batch_size x d_in) containing training images in rows, and
+    labels_train : np.ndarray(np.int64)
+        the vector (batch_size) of corresponding labels for each image.
+    learning_rate : float
+        The learning rate.
+
+    Returns
+    -------
+    w1 : np.ndarray(np.float32)
+        The updated weight matrix (d_in x d_h) of the first (hidden) layer.
+    b1 : np.ndarray(np.float32)
+        The updated bias matrix (1, d_h) of the first (hidden) layer.
+    w2 : np.ndarray(np.float32)
+        The updated weight matrix (d_h x d_out) of the output layer.
+    b2 : np.ndarray(np.float32)
+        The updated bias matrix (1 x d_out) of the output layer.
+    loss : float
+        The value of the loss for one training epoch.
+    accuracy : float
+        The value of the accuracy for one training epoch.
+    """
     N = data.shape[0]
 
     # Forward pass
@@ -88,8 +185,7 @@ def learn_once_cross_entropy(w1, b1, w2, b2, data, labels_train, learning_rate):
     print("Accuracy is : ", accuracy)
 
     # Gradient computation
-    """ We admit that $`\frac{partial C}{partial Z^{(2)}} = A^{(2)} - Y`$.
-    Where $`Y`$ is a one-hot vector encoding the label. """
+    # We admit that $`\frac{partial C}{partial Z^{(2)}} = A^{(2)} - Y`$.
     dC_dz2 = a2 - targets_one_hot
     dC_dw2 = np.matmul(a1.T, dC_dz2) / N
     dC_db2 = np.sum(dC_dz2, axis=0, keepdims=True) / N
@@ -108,6 +204,42 @@ def learn_once_cross_entropy(w1, b1, w2, b2, data, labels_train, learning_rate):
 
 
 def train_mlp(w1, b1, w2, b2, data_train, labels_train, learning_rate, num_epochs):
+    """Perform num_epoch training steps with given learning_rate and loss function.
+
+    Parameters
+    ----------
+    w1 : np.ndarray(np.float32)
+        The weight matrix (d_in x d_h) of the first (hidden) layer.
+    b1 : np.ndarray(np.float32)
+        The bias matrix (1, d_h) of the first (hidden) layer.
+    w2 : np.ndarray(np.float32)
+        The weight matrix (d_h x d_out) of the output layer.
+    b2 : np.ndarray(np.float32)
+        The bias matrix (1 x d_out) of the output layer.
+    data_train : np.ndarray(np.float32)
+        The input matrix (batch_size x d_in) containing training images in rows, and
+    labels_train : np.ndarray(np.int64)
+        The vector (batch_size) of corresponding labels for each training image.
+    learning_rate : float
+        The learning rate.
+    num_epochs : int
+        The number of epochs to perform training.
+
+    Returns
+    -------
+    w1 : np.ndarray(np.float32)
+        The updated weight matrix (d_in x d_h) of the first (hidden) layer after complete training.
+    b1 : np.ndarray(np.float32)
+        The updated bias matrix (1, d_h) of the first (hidden) layer after complete training.
+    w2 : np.ndarray(np.float32)
+        The updated weight matrix (d_h x d_out) of the output layer after complete training.
+    b2 : np.ndarray(np.float32)
+        The updated bias matrix (1 x d_out) of the output layer after complete training.
+    train_accuracies : np.ndarray(float32)
+        A vector containing the accuracy before training for each epoch.
+    train_losses : np.ndarray(float32)
+        A vector containing the loss before training for each epoch.
+    """
     train_accuracies = np.zeros((num_epochs, 1))
     train_losses = np.zeros((num_epochs, 1))
 
@@ -124,7 +256,28 @@ def train_mlp(w1, b1, w2, b2, data_train, labels_train, learning_rate, num_epoch
 
 
 def test_mlp(w1, b1, w2, b2, data_test, labels_test):
+    """Test the trained network on the test set.
 
+    Parameters
+    ----------
+    w1 : np.ndarray(np.float32)
+        The weight matrix (d_in x d_h) of the first (hidden) layer.
+    b1 : np.ndarray(np.float32)
+        The bias matrix (1, d_h) of the first (hidden) layer.
+    w2 : np.ndarray(np.float32)
+        The weight matrix (d_h x d_out) of the output layer.
+    b2 : np.ndarray(np.float32)
+        The bias matrix (1 x d_out) of the output layer.
+    data_test : np.ndarray(np.float32)
+        The input matrix (batch_size x d_in) containing test images in rows, and
+    labels_test : np.ndarray(np.int64)
+        the vector (batch_size) of corresponding labels for each image.
+
+    Returns
+    -------
+    float
+        The testing accuracy.
+    """
     # Forward pass
     a0 = data_test  # the data are the input of the first layer
     z1 = np.matmul(a0, w1) + b1  # input of the hidden layer
@@ -147,6 +300,34 @@ def test_mlp(w1, b1, w2, b2, data_test, labels_test):
 def run_mlp_training(
     data_train, labels_train, data_test, labels_test, d_h, learning_rate, num_epochs
 ):
+    """Train an MLP classifier and test the trained network (weights and biases) on the test set.
+
+    Parameters
+    ----------
+    data_train : np.ndarray(np.float32)
+        The input matrix (batch_size x d_in) containing training images in rows, and
+    labels_train : np.ndarray(np.int64)
+        The vector (batch_size) of corresponding labels for each training image.
+    data_test : np.ndarray(np.float32)
+        The input matrix (batch_size x d_in) containing test images in rows, and
+    labels_test : np.ndarray(np.int64)
+        the vector (batch_size) of corresponding labels for each image.
+    d_h : int
+        The number of neurons in the hidden layer.
+    learning_rate : float
+        The learning rate.
+    num_epochs : int
+        The number of epochs to perform training.
+
+    Returns
+    -------
+    train_accuracies : np.ndarray(float32)
+        A vector containing the accuracy before training for each epoch.
+    train_losses : np.ndarray(float32)
+        A vector containing the loss before training for each epoch.
+    final_accuracy : float
+        The testing accuracy.
+    """
     d_in = np.shape(data_train)[1]
     d_out = 10
 
