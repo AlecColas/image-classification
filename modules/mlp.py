@@ -123,7 +123,7 @@ def train_mlp(w1, b1, w2, b2, data_train, labels_train, learning_rate, num_epoch
     return (w1, b1, w2, b2, train_accuracies, train_losses)
 
 
-def final_test_mlp(w1, b1, w2, b2, data_test, labels_test):
+def test_mlp(w1, b1, w2, b2, data_test, labels_test):
 
     # Forward pass
     a0 = data_test  # the data are the input of the first layer
@@ -160,6 +160,6 @@ def run_mlp_training(
         w1, b1, w2, b2, data_train, labels_train, learning_rate, num_epochs
     )
 
-    final_accuracy = final_test_mlp(w1, b1, w2, b2, data_test, labels_test)
+    final_accuracy = test_mlp(w1, b1, w2, b2, data_test, labels_test)
 
     return (train_accuracies, train_losses, final_accuracy)
