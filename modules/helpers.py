@@ -112,19 +112,22 @@ def plot_and_save_fig(x_max, accuracies, split_factor, name):
 
     range_k_max = range(1, x_max+1, 1)
     list_k = list(range_k_max)
-    default_x_ticks = range_k_max
 
     fig = plt.figure()
     plt.plot(list_k, accuracies, marker='o',
              linestyle='--', color='b', label='split_factor = '+str(split_factor))
 
-    plt.xticks(default_x_ticks, list_k)
+    plt.title(name+' method accuracy using CIFAR-10 data')
     plt.grid(True, which='both')
-
-    plt.xlabel('k number of neighbors')
     plt.ylabel('Accuracy')
-    plt.title('KNN method accuracy using CIFAR-10 data')
     plt.legend()
+
+    if (name == 'knn'):
+        default_x_ticks = range_k_max
+        plt.xticks(default_x_ticks, list_k)
+        plt.xlabel('k number of neighbors')
+    else:
+        plt.xlabel('Epoch number')
     plt.show()
 
     save = choose_to_save()
