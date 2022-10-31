@@ -1,5 +1,6 @@
-from matplotlib import pyplot as plt
 from datetime import datetime
+
+from matplotlib import pyplot as plt
 
 
 def choose_classification_method():

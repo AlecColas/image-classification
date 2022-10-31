@@ -1,8 +1,8 @@
-import pytest
 import numpy as np
+import pytest
 
-from modules.knn import classify_with_mode, compute_accuracy, distance_matrix, evaluate_knn, knn_predict
-
+from modules.knn import (classify_with_mode, compute_accuracy, distance_matrix,
+                         evaluate_knn, knn_predict)
 
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])

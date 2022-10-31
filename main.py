@@ -1,7 +1,8 @@
+from modules.helpers import (choose_classification_method, choose_split_factor,
+                             plot_and_save_fig)
 from modules.knn import evaluate_knn, evaluate_knn_optimized
-from modules.read_cifar import read_cifar, split_dataset
-from modules.helpers import choose_classification_method, choose_split_factor, plot_and_save_fig
 from modules.mlp import run_mlp_training
+from modules.read_cifar import read_cifar, split_dataset
 
 chosen_method = choose_classification_method()
 split_factor = choose_split_factor()
