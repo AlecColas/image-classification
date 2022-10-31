@@ -153,6 +153,6 @@ def plot_and_save_fig(x_max, accuracies, split_factor, name):
 
     save = choose_to_save()
     if save == 1:
-        fig.savefig("results/" + name + str(datetime.now()) + ".png")
+        fig.savefig("results/" + name + ".png")
 
     return

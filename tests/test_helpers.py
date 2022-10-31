@@ -1,7 +1,6 @@
 from matplotlib import pyplot as plt
-import pytest
 
-import modules.helpers as helpers
+import helpers
 
 
 def test_choose_classification_method(monkeypatch):

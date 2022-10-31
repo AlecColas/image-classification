@@ -3,14 +3,10 @@
 When launched, it guides the user from choosing a classification method and its parameters to plotting and saving the data.
 """
 
-from modules.helpers import (
-    choose_classification_method,
-    choose_split_factor,
-    plot_and_save_fig,
-)
-from modules.knn import evaluate_knn, evaluate_knn_optimized
-from modules.mlp import run_mlp_training
-from modules.read_cifar import read_cifar, split_dataset
+from helpers import choose_classification_method, choose_split_factor, plot_and_save_fig
+from knn import evaluate_knn, evaluate_knn_optimized
+from mlp import run_mlp_training
+from read_cifar import read_cifar, split_dataset
 
 chosen_method = choose_classification_method()
 split_factor = choose_split_factor()
