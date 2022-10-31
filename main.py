@@ -34,7 +34,7 @@ elif (chosen_method == 1):
     plot_and_save_fig(k_max, accuracy_for_all_k, split_factor, 'knn')
 
 elif (chosen_method == 2):
-    num_epoch = 10
+    num_epoch = 100
     (train_accuracies, train_losses, final_accuracy) = run_mlp_training(data_train, labels_train, data_test,
                                                                         labels_test, 64, 0.1, num_epoch)
 
