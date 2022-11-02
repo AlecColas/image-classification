@@ -63,6 +63,9 @@ from mlp import run_mlp_training
 
 ## Project Architecture
 
+Functions used for each classification method are contained in dedicated files.
+Unit tests for each of these functions appear in the [tests/](tests/) directory under the name _test+\_[method_name].py_.
+
     .
     ├── knn.py                 # KNN library file
     ├── mlp.py                 # Artificial Neural Network library file
@@ -74,9 +77,6 @@ from mlp import run_mlp_training
         ├── test_knn.py
         ├── test_mlp.py
         └── test_read_cifar.py
-
-Functions used for each classification method are contained in dedicated files.
-Unit tests for each of these functions appear in the [tests/](tests/) directory under the name _test+\_[method_name].py_.
 
 ## CIFAR-10
 
@@ -94,8 +94,6 @@ If you want to propose any improvements or need any help, feel free to contribut
 - [Learning Multiple Layers of Features from Tiny Images](https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf) by _Alex Krizhevsky_
 - [Download CIFAR datasets](https://www.cs.toronto.edu/~kriz/cifar.html) by _Alex Krizhevsky_
 - [Tutorial to Image Classification](https://gitlab.ec-lyon.fr/qgalloue/image_classification_instructions) by _Quentin Gallouédec_
-- [What is the k-nearest neighbors method](https://www.ibm.com/topics/knn) by _IBM_
-- [What are Neural Networks](https://www.ibm.com/cloud/learn/neural-networks) by _IBM_
 
 ## License
 
