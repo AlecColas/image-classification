@@ -11,17 +11,11 @@ This repository follows the instructions of this tutorial : https://gitlab.ec-ly
 
 ## Installation
 
-### Requirements
+This project requires [python3](https://www.python.org/), and common libraries installed :
 
-This project requires [python3](https://www.python.org/), and common libraries installations :
-
-- [Matplotlib](https://matplotlib.org/) for creating visualizations
-- [NumPy](https://numpy.org/) for computing with 2-D arrays
-- [SciPy](https://scipy.org/) for fundamental algorithms
+- [NumPy](https://numpy.org/) for computing with arrays
 - [Pickle](https://docs.python.org/3/library/pickle.html) for Python object serialization
 - [Pytest](https://docs.pytest.org/en/7.1.x/) for unit tests
-
-### Development Environment
 
 This project follows the [PEP8](https://peps.python.org/pep-0008/) and [PEP257](https://peps.python.org/pep-0257/) Recommandations.
 
