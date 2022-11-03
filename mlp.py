@@ -75,8 +75,6 @@ def learn_once_mse(w1, b1, w2, b2, data, targets, learning_rate):
         The updated bias matrix (1 x d_out) of the output layer.
     loss : float
         The value of the loss for one training epoch.
-    accuracy : float
-        The value of the accuracy for one training epoch.
     """
     N = data.shape[0]
 
@@ -148,8 +146,6 @@ def learn_once_cross_entropy(w1, b1, w2, b2, data, labels_train, learning_rate):
         The updated bias matrix (1 x d_out) of the output layer.
     loss : float
         The value of the loss for one training epoch.
-    accuracy : float
-        The value of the accuracy for one training epoch.
     """
     N = data.shape[0]
 
@@ -221,8 +217,6 @@ def train_mlp(w1, b1, w2, b2, data_train, labels_train, learning_rate, num_epoch
         The updated bias matrix (1 x d_out) of the output layer after complete training.
     train_accuracies : np.ndarray(float32)
         A vector containing the accuracy before training for each epoch.
-    train_losses : np.ndarray(float32)
-        A vector containing the loss before training for each epoch.
     """
     train_accuracies = np.zeros((num_epochs, 1))
 
@@ -321,8 +315,6 @@ def run_mlp_training(
     -------
     train_accuracies : np.ndarray(float32)
         A vector containing the accuracy before training for each epoch.
-    train_losses : np.ndarray(float32)
-        A vector containing the loss before training for each epoch.
     final_accuracy : float
         The testing accuracy.
     """

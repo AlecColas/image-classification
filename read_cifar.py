@@ -15,9 +15,9 @@ def read_cifar_batch(file_path: str):
 
     Returns
     -------
-    np.ndarray(np.float64)
+    data_in_float32 : np.ndarray(np.float64)
         Images extracted from CIFAR data, and
-    labels_in_int64 (np.ndarray(np.int32))
+    labels_in_int64 : (np.ndarray(np.int32))
         corresponding labels extracted from CIFAR data.
     """
     with open(file_path, "rb") as fo:
@@ -41,9 +41,9 @@ def read_cifar(folder_path: str):
 
     Returns
     -------
-    np.ndarray(np.float64)
+    concat_data : np.ndarray(np.float64)
         Images extracted from all CIFAR-10 data batches, and
-    np.ndarray(np.int32)
+    concat_labels : np.ndarray(np.int32)
         corresponding labels extracted from all CIFAR-10 data batches.
     """
     print("Extracting CIFAR-10 data")
@@ -82,13 +82,13 @@ def split_dataset(data, labels, split: float):
 
     Returns
     -------
-    np.ndarray(np.float32)
+    train_data : np.ndarray(np.float32)
         The training data, and
-    np.ndarray(np.int64)
+    train_labels : np.ndarray(np.int64)
         the corresponding labels.
-    np.ndarray(np.float32)
+    test_data : np.ndarray(np.float32)
         The test data, and
-    np.ndarray(np.int64)
+    test_labels : np.ndarray(np.int64)
         the corresponding labels.
     """
     print("Splitting dataset")
