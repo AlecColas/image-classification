@@ -29,12 +29,12 @@ def one_hot(labels):
 
     Parameters
     ----------
-    labels : _type_
+    labels : np.ndarray(np.int64)
         An (n)-D array of labels.
 
     Returns
     -------
-    _type_
+    np.ndarray(np.float64)
         The corresponding (n+1)-D one-hot matrix.
     """
     dimensions = np.max(labels) + 1
