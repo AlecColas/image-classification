@@ -11,123 +11,79 @@ This repository follows the instructions of this tutorial : https://gitlab.ec-ly
 
 ## Installation
 
-### Requirements
+This project requires [python3](https://www.python.org/), and common libraries installed :
 
-This project requires [python3](https://www.python.org/), and common libraries installations :
-
-- [Matplotlib](https://matplotlib.org/) for creating visualizations
-- [NumPy](https://numpy.org/) for computing with 2-D arrays
-- [SciPy](https://scipy.org/) for fundamental algorithms
-- [Pickel](https://docs.python.org/3/library/pickle.html) for Python object serialization
+- [NumPy](https://numpy.org/) for computing with arrays
+- [Pickle](https://docs.python.org/3/library/pickle.html) for Python object serialization
 - [Pytest](https://docs.pytest.org/en/7.1.x/) for unit tests
 
-### Development Environment
-
-This project was developped using Visual Studio Code (see https://code.visualstudio.com/ for installation), and contains a vscode [settings.json](.vscode/settings.json) to allow type checking (to check the correct use of functions' outputs.)
-
-It follows the [PEP8](https://peps.python.org/pep-0008/) and [PEP257](https://peps.python.org/pep-0257/) Recommandations.
-
-You can use Python utilites / libraries such as :
-
-- [Black](https://black.readthedocs.io/en/stable/) to format code
-- [isort](https://pycqa.github.io/isort/) to sort imports
-- [Pydocstyle](http://www.pydocstyle.org/en/stable/) to help you document your code properly
-
-Or you can use VSCode extensions such as :
-
-- [Prettier](https://prettier.io/) to format code
-- [autoDocString](https://github.com/NilsJPWerner/autoDocstring) to help you document your code properly
+This project follows the [PEP8](https://peps.python.org/pep-0008/) and [PEP257](https://peps.python.org/pep-0257/) Recommandations.
 
 ## Usage
 
-To run the script contained in main.py simply use :
+Firstly, you need to read CIFAR-10 dataset, given that you have copied the data batches locally in a `data/` folder.
+You can use this code to read and split the data in training and test sets :
 
-```Bash
-python3 main.py
+```Python
+from read_cifar import read_cifar, split_dataset
+
+(data, labels) = read_cifar("data")
+
+data_train, labels_train, data_test, labels_test = split_dataset(
+    data, labels, split_factor
+)
 ```
 
-Then, you will be able to choose which method to use by entering 0, 1 or 2 :
+Thus, you can choose to use either KNN or Artificial Neural Network to perform classification :
 
-- 0 for unoptimized KNN method (might take some time to compute)
-- 1 for optimized KNN method
-- 2 for Neural Network
+For KNN :
 
-To run unit tests you may use :
+```Python
+from knn import evaluate_knn, evaluate_knn_optimized
 
-```Bash
-python3 -m pytest tests
+# Classic version :
+accuracy = evaluate_knn(data_train, labels_train, data_test, labels_test, k)
+
+# Optimized version :
+accuracies_for_range_k = evaluate_knn_optimized(
+        data_train, labels_train, data_test, labels_test, k_max
+    )
+
 ```
 
-Unit tests are run and created with Pytest.
+For Artifical Neural Network :
 
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+```Python
+from mlp import run_mlp_training
 
-## Architecture
+(train_accuracies, train_losses, final_accuracy) = run_mlp_training(
+        data_train, labels_train, data_test, labels_test, d_h, learning_rate, num_epoch
+    )
+```
 
-The [main script](main.py) is the executable part of this project.
-
-    .
-    ├── data                   # The CIFAR dataset directory
-    ├── knn.py                 # knn python file
-    ├── mlp.py                 # Artificial Neural Network python file
-    ├── read_cifar.py          # CIFAR database access python file
-    └── results                # Graphs
-        ├── mlp.png
-        └── knn.png
+## Project Architecture
 
 Functions used for each classification method are contained in dedicated files.
-
-Some helper functions for example choosing a classification method, choosing the value of the split factor or plotting results are contained in the [helper file](helper.py)
-
 Unit tests for each of these functions appear in the [tests/](tests/) directory under the name _test+\_[method_name].py_.
 
-## Principles
-
-### k-Nearest Neighbors Algorithm
-
-The k-nearest neighbors algorithm, also known as KNN or k-NN, is a non-parametric, supervised learning classifier, which uses proximity to make classifications or predictions about the grouping of an individual data point. While it can be used for either regression or classification problems, it is typically used as a classification algorithm, working off the assumption that similar points can be found near one another.
-
-KNN works by finding the distances between a query and all the examples in the training data, selecting the specified number examples (K) closest to the query, then votes for the most frequent label (in the case of classification) or averages the labels (in the case of regression).
-
-<figure>
-<img src="https://www.ibm.com/content/dam/connectedassets-adobe-cms/worldwide-content/cdp/cf/ul/g/ef/3a/KNN.component.xl.ts=1639762044031.png/content/adobe-cms/ca/fr/topics/knn/jcr:content/root/table_of_contents/intro/complex_narrative/items/content_group/image" alt="Trulli" style="width:100%">
-<figcaption align = "center"><b>Principle of K Neirest Neighbors (KNN)</b></figcaption>
-</figure>
-
-_Source : https://www.ibm.com/topics/knn_
-
-For more references, see [K-Nearest Neighbors Algorithm](https://www.ibm.com/topics/knn) or [Machine Learning Basics with the K-Nearest Neighbors Algorithm](https://towardsdatascience.com/machine-learning-basics-with-the-k-nearest-neighbors-algorithm-6a6e71d01761)
-
-### Neural Networks
-
-Neural networks, also known as artificial neural networks (ANNs) or simulated neural networks (SNNs), are a subset of machine learning and are at the heart of deep learning algorithms. Their name and structure are inspired by the human brain, mimicking the way that biological neurons signal to one another.
-
-Artificial neural networks (ANNs) are comprised of a node layers, containing an input layer, one or more hidden layers, and an output layer. Each node, or artificial neuron, connects to another and has an associated weight and threshold. If the output of any individual node is above the specified threshold value, that node is activated, sending data to the next layer of the network. Otherwise, no data is passed along to the next layer of the network.
-
-<figure>
-<img src="https://1.cms.s81c.com/sites/default/files/2021-01-06/ICLH_Diagram_Batch_01_03-DeepNeuralNetwork-WHITEBG.png" alt="Trulli" style="width:100%">
-<figcaption align = "center"><b>Principle of Artificial Neural Network (NN)</b></figcaption>
-</figure>
-
-Neural networks rely on training data to learn and improve their accuracy over time. However, once these learning algorithms are fine-tuned for accuracy, they are powerful tools in computer science and artificial intelligence, allowing us to classify and cluster data at a high velocity. Tasks in speech recognition or image recognition can take minutes versus hours when compared to the manual identification by human experts.
-
-_Source : https://www.ibm.com/cloud/learn/neural-networks_
+    .
+    ├── knn.py                 # KNN library file
+    ├── mlp.py                 # Artificial Neural Network library file
+    ├── read_cifar.py          # CIFAR reader library file
+    ├── results                # Graphs
+        ├── mlp.png
+        └── knn.png
+    └── tests                  # Unittests directory
+        ├── test_knn.py
+        ├── test_mlp.py
+        └── test_read_cifar.py
 
 ## CIFAR-10
 
-The CIFAR-10 and CIFAR-100 are labeled subsets of the 80 million tiny images dataset. They were collected by Alex Krizhevsky, Vinod Nair, and Geoffrey Hinton.
+The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class.
 
-The CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images.
-
-The dataset is divided into five training batches and one test batch, each with 10000 images. The test batch contains exactly 1000 randomly-selected images from each class. The training batches contain the remaining images in random order, but some training batches may contain more images from one class than another. Between them, the training batches contain exactly 5000 images from each class.
-
-Here are the classes in the dataset, as well as 10 random images from each: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck.
-
-The classes are completely mutually exclusive. There is no overlap between automobiles and trucks. "Automobile" includes sedans, SUVs, things of that sort. "Truck" includes only big trucks. Neither includes pickup trucks.
-
-To learn more about CIFAR data or download data, click the Source link.
-
-_Source : https://www.cs.toronto.edu/~kriz/cifar.html_
+The classes in the dataset, are : airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck.
+These classes are completely mutually exclusive.
 
 ## Support / Contributing
 
@@ -138,8 +94,6 @@ If you want to propose any improvements or need any help, feel free to contribut
 - [Learning Multiple Layers of Features from Tiny Images](https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf) by _Alex Krizhevsky_
 - [Download CIFAR datasets](https://www.cs.toronto.edu/~kriz/cifar.html) by _Alex Krizhevsky_
 - [Tutorial to Image Classification](https://gitlab.ec-lyon.fr/qgalloue/image_classification_instructions) by _Quentin Gallouédec_
-- [What is the k-nearest neighbors method](https://www.ibm.com/topics/knn) by _IBM_
-- [What are Neural Networks](https://www.ibm.com/cloud/learn/neural-networks) by _IBM_
 
 ## License
 
