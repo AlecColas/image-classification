@@ -158,7 +158,7 @@ def compute_accuracy_for_range_k(labels_test, computed_labels_for_k_max, k_max):
         The true labels of test images.
     computed_labels_for_k_max : np.ndarray(np.int64)
         The computed labels of test images for k = k_max.
-    k_max : _type_
+    k_max : int
         The maximum number of neighbors chosen.
 
     Returns
