@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from numpy import random
 
-from read_cifar import read_cifar, read_cifar_batch, split_dataset
+from modules.read_cifar import read_cifar, read_cifar_batch, split_dataset
 
 
 def test_read_cifar_batch():

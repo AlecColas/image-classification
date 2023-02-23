@@ -37,13 +37,14 @@ Or you can use VSCode extensions such as :
 
 - [Prettier](https://prettier.io/) to format code
 - [autoDocString](https://github.com/NilsJPWerner/autoDocstring) to help you document your code properly
+- [Makefile Tools](https://github.com/Microsoft/vscode-makefile-tools/) to support Makefiles in VSCode
 
 ## Usage
 
 To run the script contained in main.py simply use :
 
-```Bash
-python3 main.py
+```Makefile
+make run
 ```
 
 Then, you will be able to choose which method to use by entering 0, 1 or 2 :
@@ -54,32 +55,42 @@ Then, you will be able to choose which method to use by entering 0, 1 or 2 :
 
 To run unit tests you may use :
 
-```Bash
-python3 -m pytest tests
+```Makefile
+make unittest
 ```
 
-Unit tests are run and created with Pytest.
+To visualize test coverage run :
+
+```Makefile
+make coverage
+```
+
+Unit tests and test coverage reports are run and created with Pytest.
 
 Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
 ## Architecture
 
-The [main script](main.py) is the executable part of this project.
+The [Makefile](Makefile) groups all usefull commands for this project :
 
-    .
-    ├── data                   # The CIFAR dataset directory
-    ├── knn.py                 # knn python file
-    ├── mlp.py                 # Artificial Neural Network python file
-    ├── read_cifar.py          # CIFAR database access python file
-    └── results                # Graphs
-        ├── mlp.png
-        └── knn.png
+- Running the main.py script
+- Executing unit tests
+- Checking cove coverage
 
-Functions used for each classification method are contained in dedicated files.
+The [main script](main.py) is the executable part of this project. It can be easily run using the method contained in the [Makefile](Makefile).
 
-Some helper functions for example choosing a classification method, choosing the value of the split factor or plotting results are contained in the [helper file](helper.py)
+<figure>
+<img src="assets/project_architecture.png" alt="Trulli" style="width:100%">
+<figcaption align = "center"><b>Drawing of this project's architecture</b></figcaption>
+</figure>
+
+Functions used for each classification method are contained in files under the directory [modules/](modules/).
+
+Some helper functions for example choosing a classification method, choosing the value of the split factor or plotting results are contained in the [helper file](modules/helper.py)
 
 Unit tests for each of these functions appear in the [tests/](tests/) directory under the name _test+\_[method_name].py_.
+
+The [vscode settings](.vscode/settings.json) allow type checking for Visual Studio Code Users. It is usefull to check the correct use of functions' outputs during the development phase.
 
 ## Principles
 

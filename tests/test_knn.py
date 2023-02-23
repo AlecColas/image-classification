@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from knn import (
+from modules.knn import (
     classify_with_mode,
     compute_accuracy,
     distance_matrix,
