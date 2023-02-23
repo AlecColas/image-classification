@@ -21,6 +21,14 @@ This project requires [python3](https://www.python.org/), and common libraries i
 - [Pickle](https://docs.python.org/3/library/pickle.html) for Python object serialization
 - [Pytest](https://docs.pytest.org/en/7.1.x/) for unit tests
 
+This project works with CIFAR-10 data (see the [section](##CIFAR-10) below to understand the data).
+If CIFAR-10 data is absent from your local repository, some [unit tests](/tests/test_read_cifar.py) will fail.
+
+- Click [here](https://www.cs.toronto.edu/~kriz/cifar.html) to download the data in your project's folder ;
+- Unzip the data to a 'data' folder.
+
+You are now good to go.
+
 ### Development Environment
 
 It follows the [PEP8](https://peps.python.org/pep-0008/) and [PEP257](https://peps.python.org/pep-0257/) Recommandations.
