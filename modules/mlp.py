@@ -29,18 +29,16 @@ def one_hot(labels):
 
     Parameters
     ----------
-    labels : _type_
+    labels : np.ndarray(np.int64)
         An (n)-D array of labels.
 
     Returns
     -------
-    _type_
+    np.ndarray(np.float64)
         The corresponding (n+1)-D one-hot matrix.
     """
-    nb_rows = labels.size
-
-    hot_labels = np.zeros((nb_rows, labels.max() + 1))
-    hot_labels[np.arange(nb_rows), labels] = 1
+    dimensions = np.max(labels) + 1
+    hot_labels = np.eye(dimensions)[labels]
 
     return hot_labels
 

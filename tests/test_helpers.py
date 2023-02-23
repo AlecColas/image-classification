@@ -1,5 +1,5 @@
-from matplotlib import pyplot as plt
 import pytest
+from matplotlib import pyplot as plt
 
 import modules.helpers as helpers
 

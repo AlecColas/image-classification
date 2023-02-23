@@ -16,14 +16,12 @@ This repository follows the instructions of this tutorial : https://gitlab.ec-ly
 This project requires [python3](https://www.python.org/), and common libraries installations :
 
 - [Matplotlib](https://matplotlib.org/) for creating visualizations
-- [NumPy](https://numpy.org/) for computing with 2-D arrays
+- [NumPy](https://numpy.org/) for computing with arrays
 - [SciPy](https://scipy.org/) for fundamental algorithms
-- [Pickel](https://docs.python.org/3/library/pickle.html) for Python object serialization
+- [Pickle](https://docs.python.org/3/library/pickle.html) for Python object serialization
 - [Pytest](https://docs.pytest.org/en/7.1.x/) for unit tests
 
 ### Development Environment
-
-This project was developped using Visual Studio Code (see https://code.visualstudio.com/ for installation), and contains a vscode [settings.json](.vscode/settings.json) to allow type checking (to check the correct use of functions' outputs.)
 
 It follows the [PEP8](https://peps.python.org/pep-0008/) and [PEP257](https://peps.python.org/pep-0257/) Recommandations.
 
@@ -89,8 +87,6 @@ Functions used for each classification method are contained in files under the d
 Some helper functions for example choosing a classification method, choosing the value of the split factor or plotting results are contained in the [helper file](modules/helper.py)
 
 Unit tests for each of these functions appear in the [tests/](tests/) directory under the name _test+\_[method_name].py_.
-
-The [vscode settings](.vscode/settings.json) allow type checking for Visual Studio Code Users. It is usefull to check the correct use of functions' outputs during the development phase.
 
 ## Principles
 
