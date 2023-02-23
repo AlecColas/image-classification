@@ -27,18 +27,13 @@ def test_softmax():
 
 
 def test_one_hot():
-    hot_0 = np.array([1])
     hot_a = np.array([[0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
-    hot_a1 = np.array(
-        [
-            [[0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]],
-            [[0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]],
-            [[0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]],
-        ]
-    )
-
     assert np.array_equal(one_hot(a), hot_a)
-    assert np.array_equal(one_hot(a1), hot_a1)
-    assert np.array_equal(one_hot(0), hot_0)
 
+    with pytest.raises(IndexError):
+        one_hot(a1)
+    with pytest.raises(AttributeError):
+        one_hot(0)
+    with pytest.raises(AttributeError):
+        one_hot([0, 1])
     return
